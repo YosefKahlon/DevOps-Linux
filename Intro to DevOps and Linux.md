@@ -2,9 +2,7 @@
 #  DevOps & Linux Basics
 
 <details>
-<summary>
- Theory Tasks 
-</summary>
+<summary>Theory Tasks </summary>
 
 ### Outline the Agile methodology and its role in supporting DevOps practices. 
 
@@ -52,13 +50,10 @@ Example:
 This improved uptime, reduced outages, and made fixing bugs faster and safer.
 </details>
 
-<summary>
+
 
 <details>
-<summary>
-Practice Tasks
-</summary>
-
+<summary>Practice Tasks</summary>
 
 ### Use basic commands (ls, cd, pwd, mkdir, rm) to navigate and manage directories. 
 ``` bash 
@@ -118,12 +113,12 @@ Example:
 
 </details>
 
-<details>
-<summary>
-Summary Task
- </summary>
 
-# Summary Task – DevOps & Linux Basics 
+
+<details>
+<summary>Summary Task</summary>
+
+## Summary Task – DevOps & Linux Basics 
 
 Part 1: Creating Directory Structure & Permissions 
 
