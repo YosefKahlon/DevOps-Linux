@@ -57,7 +57,7 @@ This improved uptime, reduced outages, and made fixing bugs faster and safer.
 <details>
 <summary>
 Practice Tasks
- </summary>
+</summary>
 
 
 ### Use basic commands (ls, cd, pwd, mkdir, rm) to navigate and manage directories. 
