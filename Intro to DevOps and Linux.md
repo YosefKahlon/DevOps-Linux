@@ -1,8 +1,7 @@
 
 #  DevOps & Linux Basics
 
-<details>
-<summary>Theory Tasks </summary>
+e
 
 ### Outline the Agile methodology and its role in supporting DevOps practices. 
 
