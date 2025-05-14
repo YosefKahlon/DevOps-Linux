@@ -1,4 +1,7 @@
 
+ 
+ # Daily Practice Tasks
+
  <details>
 <summary> Hello DevOps Script </summary>
 
@@ -59,3 +62,140 @@ fi  # End of if block
  </details>
 
  -----
+
+
+ <details>
+<summary> List Files with Sizes </summary>
+  
+
+ 
+
+```bash
+#!/bin/bash
+
+printf "%-30s %10s\n" "Filename" "Size (KB)"
+printf "%-30s %10s\n" "--------" "----------"
+
+for file in *; do # Loop through all files in the current directory
+  if [ -f "$file" ]; then
+    size_bytes=$(stat %s "$file")         # Get size in bytes
+    size_kb=$(( (size_bytes + 1023) / 1024 )) # Round up to next KB
+    printf "%-30s %10s\n" "$file" "$size_kb"
+  fi
+done
+```
+The ```stat```  providing detailed statistics about files and file systems 
+
+
+The ```c%s```   use the specified FORMAT with total size, in bytes
+
+
+
+
+```bash 
+
+chmod +x list_files_with_sizes.sh
+./list_files_with_sizes.sh
+
+Filename                        Size (KB)
+--------                       ----------
+file_directory_checker.sh               1
+hello_devops.sh                         1
+list_files_with_sizes.sh                1
+```
+
+</details>
+
+----
+
+
+
+
+<details>
+<summary> Search for ERROR Logs </summary> 
+
+
+
+```bash
+
+#!/bin/bash
+log_file="access.log"
+
+if [ ! -f "$log_file" ]; then 
+  echo "File $log_file not found!"
+  exit 1
+fi
+
+echo "Lines containing 'ERROR':"
+grep "ERROR" "$log_file" #search for the word ERROR
+
+echo
+count=$(grep -o "ERROR" "$log_file" | wc -l) 
+echo "Total 'ERROR' occurrences: $count"
+
+```
+
+```grep```  searches  for PATTERNS in each FILE.
+
+```-o```, ```--only-matching```
+              Print  only the matched (non-empty) parts of a matching  
+              line, with each such part on a separate output line. 
+
+```-l```, ```--lines```
+              print the newline counts
+
+
+
+```bash
+chmod +x search_error_logs.sh
+./search_error_logs.sh
+
+Lines containing 'ERROR':
+2025-05-13 12:00:03 [ERROR] Failed to connect to database
+2025-05-13 12:00:09 [ERROR] Invalid user credentials
+
+Total 'ERROR' occurrences: 2
+```
+</details>
+
+---
+
+<details>
+<summary> AWK Column Extractor  </summary> 
+
+ Sample `data.csv`
+
+```csv
+id,name,age
+1,Alice,30
+2,Bob,25
+3,Charlie,28
+4,David,40
+5,Eve,22
+```
+
+
+```bash
+awk -F',' '{print $2}' data.csv
+```
+
+```awk``` A scripting tool for pattern scanning and text processing
+
+```-F','``` Sets the field separator to a comma ```,```, since it's a CSV
+
+```{print $2}``` Prints the second column from each row. 
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+#  Daily Practice Tasks
