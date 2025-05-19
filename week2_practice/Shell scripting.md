@@ -197,5 +197,3 @@ awk -F',' '{print $2}' data.csv
 
 
 
-
-#  Daily Practice Tasks
