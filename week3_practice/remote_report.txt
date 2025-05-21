@@ -1,0 +1,24 @@
+Remote Server: yosef@20.73.71.39
+Analyzed Directory: /var/log/
+
+File Name                 Keyword      Count 
+------------------------- ---------    ----- 
+system.log                ERROR        1     
+system.log                WARNING      1     
+app.log                   ERROR        1     
+app.log                   WARNING      1     
+app.log                   CRITICAL     1     
+cloud-init-output.log     WARNING      1     
+waagent.log               ERROR        1     
+waagent.log               WARNING      5     
+cloud-init.log            WARNING      1     
+myservice2.log            ERROR        1     
+myservice2.log            WARNING      1     
+myapp1.log                ERROR        1     
+myapp1.log                WARNING      1     
+myapp1.log                CRITICAL     1     
+
+Total Keyword Matches:
+→ ERROR      : 0
+→ WARNING    : 0
+→ CRITICAL   : 0

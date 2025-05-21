@@ -51,13 +51,13 @@ ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa
 
 Use `ssh-copy-id` (or manual `scp`) to copy your public key to a remote VM. 
 
-```az
-ssh yosef@<vm-ip>
+```bash
+ssh-copy-id <user>@<remote-ip>
 ```
 To Connect to the VM we using the `ssh`
 
-```az
-ssh yosef@<vm-ip>
+```bash
+ssh <user>@<vm-ip>
 ```
 
 </details>
@@ -123,7 +123,7 @@ echo "Hello from my machine!" > myfile.txt
 ```
 Upload the file to your VM:
 ```bash
-scp myfile.txt yosef@<vm-ip>:/home/yosef/
+scp myfile.txt <user>@<vm-ip>:/home/<user>/
 ```
 
 
@@ -134,7 +134,7 @@ mkdir downloads
 
 Download the file back from the VM:
 ```bash
-scp yosef@<vm-ip>:/home/yosef/myfile.txt ./downloads/
+scp <user>@<vm-ip>:/home/<user>/myfile.txt ./downloads/
 ```
 Verify On your local machine:
 ```bash
@@ -158,17 +158,50 @@ To run a command remotely without logging in manually, use the `ssh -t` command:
 
 
 ```bash
-ssh -t yosef@<vm-ip> "uptime"
-ssh -t yosef@<vm-ip> "df -h"
-ssh -t yosef@<vm-ip> "ls -l /home/yosef"
+ssh -t <user>@<vm-ip> "uptime"
+ssh -t <user>@<vm-ip> "df -h"
+ssh -t <user>@<vm-ip> "ls -l /home/<user>"
 ```
 Redirecting the output to a local file
 
 ```bash
-ssh -t yosef@<vm-ip> "df -h"> vm_disk_usage.txt
+ssh -t <user>@<vm-ip> "df -h"> vm_disk_usage.txt
 ```
 
 
 
 
 </details>
+
+
+# Remote Log Monitoring with SSH & VM
+
+
+A Bash script that connects to a remote Linux server via SSH, downloads and extracts log files (including `.zip`, `.tar`, `.tar.gz`), scans them for specified keywords, and generates summary reports in both TXT and CSV formats.
+
+---
+
+## Features
+
+- SSH key-only authentication (no password prompts)
+- Automatic extraction of `.zip`, `.tar`, `.tar.gz`
+- Scans all `.log` files recursively
+- Generates two output reports:
+  - `remote_report.txt` — human-readable, aligned summary
+  - `remote_report.csv` — machine-readable, Excel-ready
+- Colorized terminal output
+-  Displays total keyword summary at the end
+
+---
+
+## 🧪 Example Usage
+
+```bash
+./remote_log_analyzer.sh <user@host> <remote_log_directory> ERROR WARNING CRITICAL
+```
+
+Make sure your public key is copied to the remote server with:
+
+```bash
+ssh-copy-id <user>@<remote-ip>
+```

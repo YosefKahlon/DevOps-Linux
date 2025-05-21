@@ -1,0 +1,20 @@
+2025-05-21 10:58:12 startup archives unpack
+2025-05-21 10:58:19 install unzip:amd64 <none> 6.0-26ubuntu3.2
+2025-05-21 10:58:19 status half-installed unzip:amd64 6.0-26ubuntu3.2
+2025-05-21 10:58:19 status triggers-pending man-db:amd64 2.10.2-1
+2025-05-21 10:58:19 status unpacked unzip:amd64 6.0-26ubuntu3.2
+2025-05-21 10:58:19 install zip:amd64 <none> 3.0-12build2
+2025-05-21 10:58:19 status half-installed zip:amd64 3.0-12build2
+2025-05-21 10:58:19 status unpacked zip:amd64 3.0-12build2
+2025-05-21 10:58:19 startup packages configure
+2025-05-21 10:58:19 configure unzip:amd64 6.0-26ubuntu3.2 <none>
+2025-05-21 10:58:19 status unpacked unzip:amd64 6.0-26ubuntu3.2
+2025-05-21 10:58:19 status half-configured unzip:amd64 6.0-26ubuntu3.2
+2025-05-21 10:58:19 status installed unzip:amd64 6.0-26ubuntu3.2
+2025-05-21 10:58:19 configure zip:amd64 3.0-12build2 <none>
+2025-05-21 10:58:19 status unpacked zip:amd64 3.0-12build2
+2025-05-21 10:58:19 status half-configured zip:amd64 3.0-12build2
+2025-05-21 10:58:19 status installed zip:amd64 3.0-12build2
+2025-05-21 10:58:19 trigproc man-db:amd64 2.10.2-1 <none>
+2025-05-21 10:58:19 status half-configured man-db:amd64 2.10.2-1
+2025-05-21 10:58:20 status installed man-db:amd64 2.10.2-1

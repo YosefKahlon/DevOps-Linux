@@ -1,0 +1,213 @@
+May 21 10:42:44 myLinuxVM useradd[708]: new group: name=yosef, GID=1000
+May 21 10:42:44 myLinuxVM useradd[708]: new user: name=yosef, UID=1000, GID=1000, home=/home/yosef, shell=/bin/bash, from=none
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'adm'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'dialout'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'cdrom'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'floppy'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'sudo'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'audio'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'dip'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'video'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'plugdev'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'netdev'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to group 'lxd'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'adm'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'dialout'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'cdrom'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'floppy'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'sudo'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'audio'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'dip'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'video'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'plugdev'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'netdev'
+May 21 10:42:44 myLinuxVM useradd[708]: add 'yosef' to shadow group 'lxd'
+May 21 10:42:44 myLinuxVM passwd[716]: password for 'yosef' changed by 'root'
+May 21 10:42:45 myLinuxVM systemd-logind[754]: New seat seat0.
+May 21 10:42:45 myLinuxVM systemd-logind[754]: Watching system buttons on /dev/input/event0 (AT Translated Set 2 keyboard)
+May 21 10:42:46 myLinuxVM sshd[866]: Server listening on 0.0.0.0 port 22.
+May 21 10:42:46 myLinuxVM sshd[866]: Server listening on :: port 22.
+May 21 10:42:54 myLinuxVM useradd[1285]: new user: name=lxd, UID=999, GID=100, home=/var/snap/lxd/common/lxd, shell=/bin/false, from=none
+May 21 10:45:01 myLinuxVM CRON[1586]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+May 21 10:45:01 myLinuxVM CRON[1586]: pam_unix(cron:session): session closed for user root
+May 21 10:45:40 myLinuxVM sshd[1589]: Connection closed by 5.29.21.234 port 38845 [preauth]
+May 21 10:46:46 myLinuxVM sshd[1591]: Connection closed by authenticating user yosef 5.29.21.234 port 38687 [preauth]
+May 21 10:46:47 myLinuxVM sshd[1593]: Accepted publickey for yosef from 5.29.21.234 port 38866 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:46:47 myLinuxVM sshd[1593]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:46:47 myLinuxVM systemd-logind[754]: New session 2 of user yosef.
+May 21 10:46:47 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:46:50 myLinuxVM sshd[1692]: Received disconnect from 5.29.21.234 port 38866:11: disconnected by user
+May 21 10:46:50 myLinuxVM sshd[1692]: Disconnected from user yosef 5.29.21.234 port 38866
+May 21 10:46:50 myLinuxVM sshd[1593]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:46:50 myLinuxVM systemd-logind[754]: Session 2 logged out. Waiting for processes to exit.
+May 21 10:46:59 myLinuxVM systemd-logind[754]: Removed session 2.
+May 21 10:47:25 myLinuxVM sshd[1703]: Accepted publickey for yosef from 5.29.21.234 port 38708 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:47:25 myLinuxVM sshd[1703]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:47:25 myLinuxVM systemd-logind[754]: New session 4 of user yosef.
+May 21 10:47:26 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:47:26 myLinuxVM sshd[1757]: Received disconnect from 5.29.21.234 port 38708:11: disconnected by user
+May 21 10:47:26 myLinuxVM sshd[1757]: Disconnected from user yosef 5.29.21.234 port 38708
+May 21 10:47:26 myLinuxVM sshd[1703]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:47:26 myLinuxVM systemd-logind[754]: Session 4 logged out. Waiting for processes to exit.
+May 21 10:47:26 myLinuxVM systemd-logind[754]: Removed session 4.
+May 21 10:47:27 myLinuxVM sshd[1759]: Accepted publickey for yosef from 5.29.21.234 port 38818 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:47:27 myLinuxVM sshd[1759]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:47:27 myLinuxVM systemd-logind[754]: New session 6 of user yosef.
+May 21 10:47:37 myLinuxVM sshd[1805]: Received disconnect from 5.29.21.234 port 38818:11: disconnected by user
+May 21 10:47:37 myLinuxVM sshd[1805]: Disconnected from user yosef 5.29.21.234 port 38818
+May 21 10:47:37 myLinuxVM systemd-logind[754]: Session 6 logged out. Waiting for processes to exit.
+May 21 10:47:37 myLinuxVM sshd[1759]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:47:37 myLinuxVM systemd-logind[754]: Removed session 6.
+May 21 10:49:30 myLinuxVM sshd[1825]: error: kex_protocol_error: type 20 seq 2 [preauth]
+May 21 10:49:30 myLinuxVM sshd[1825]: error: kex_protocol_error: type 30 seq 3 [preauth]
+May 21 10:49:31 myLinuxVM sshd[1825]: error: kex_protocol_error: type 20 seq 4 [preauth]
+May 21 10:49:31 myLinuxVM sshd[1825]: error: kex_protocol_error: type 30 seq 5 [preauth]
+May 21 10:49:33 myLinuxVM sshd[1825]: error: kex_protocol_error: type 20 seq 6 [preauth]
+May 21 10:49:33 myLinuxVM sshd[1825]: error: kex_protocol_error: type 30 seq 7 [preauth]
+May 21 10:49:39 myLinuxVM sshd[1825]: Connection reset by 45.142.193.91 port 39043 [preauth]
+May 21 10:53:03 myLinuxVM sshd[1834]: Accepted publickey for yosef from 5.29.21.234 port 38888 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:53:03 myLinuxVM sshd[1834]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:53:03 myLinuxVM systemd-logind[754]: New session 7 of user yosef.
+May 21 10:53:03 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:53:04 myLinuxVM sshd[1900]: Received disconnect from 5.29.21.234 port 38888:11: disconnected by user
+May 21 10:53:04 myLinuxVM sshd[1900]: Disconnected from user yosef 5.29.21.234 port 38888
+May 21 10:53:04 myLinuxVM sshd[1834]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:53:04 myLinuxVM systemd-logind[754]: Session 7 logged out. Waiting for processes to exit.
+May 21 10:53:04 myLinuxVM systemd-logind[754]: Removed session 7.
+May 21 10:53:04 myLinuxVM sshd[1902]: Accepted publickey for yosef from 5.29.21.234 port 38813 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:53:05 myLinuxVM sshd[1902]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:53:05 myLinuxVM systemd-logind[754]: New session 9 of user yosef.
+May 21 10:53:16 myLinuxVM sshd[1948]: Received disconnect from 5.29.21.234 port 38813:11: disconnected by user
+May 21 10:53:16 myLinuxVM sshd[1948]: Disconnected from user yosef 5.29.21.234 port 38813
+May 21 10:53:16 myLinuxVM sshd[1902]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:53:16 myLinuxVM systemd-logind[754]: Session 9 logged out. Waiting for processes to exit.
+May 21 10:53:16 myLinuxVM systemd-logind[754]: Removed session 9.
+May 21 10:55:01 myLinuxVM CRON[1951]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+May 21 10:55:01 myLinuxVM CRON[1951]: pam_unix(cron:session): session closed for user root
+May 21 10:56:06 myLinuxVM sshd[1955]: Accepted publickey for yosef from 5.29.21.234 port 38820 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:56:06 myLinuxVM sshd[1955]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:56:06 myLinuxVM systemd-logind[754]: New session 11 of user yosef.
+May 21 10:56:06 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:56:07 myLinuxVM sshd[2019]: Received disconnect from 5.29.21.234 port 38820:11: disconnected by user
+May 21 10:56:07 myLinuxVM sshd[2019]: Disconnected from user yosef 5.29.21.234 port 38820
+May 21 10:56:07 myLinuxVM sshd[1955]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:56:07 myLinuxVM systemd-logind[754]: Session 11 logged out. Waiting for processes to exit.
+May 21 10:56:07 myLinuxVM systemd-logind[754]: Removed session 11.
+May 21 10:56:08 myLinuxVM sshd[2021]: Accepted publickey for yosef from 5.29.21.234 port 38835 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:56:08 myLinuxVM sshd[2021]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:56:08 myLinuxVM systemd-logind[754]: New session 13 of user yosef.
+May 21 10:56:17 myLinuxVM sshd[2067]: Received disconnect from 5.29.21.234 port 38835:11: disconnected by user
+May 21 10:56:17 myLinuxVM sshd[2067]: Disconnected from user yosef 5.29.21.234 port 38835
+May 21 10:56:17 myLinuxVM sshd[2021]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:56:17 myLinuxVM systemd-logind[754]: Session 13 logged out. Waiting for processes to exit.
+May 21 10:56:17 myLinuxVM systemd-logind[754]: Removed session 13.
+May 21 10:57:18 myLinuxVM sshd[2070]: Accepted publickey for yosef from 5.29.21.234 port 38791 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:57:18 myLinuxVM sshd[2070]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:57:18 myLinuxVM systemd-logind[754]: New session 14 of user yosef.
+May 21 10:57:18 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:58:09 myLinuxVM sudo:    yosef : TTY=pts/0 ; PWD=/tmp ; USER=root ; COMMAND=/usr/bin/apt install zip
+May 21 10:58:09 myLinuxVM sudo: pam_unix(sudo:session): session opened for user root(uid=0) by yosef(uid=1000)
+May 21 10:58:24 myLinuxVM sudo: pam_unix(sudo:session): session closed for user root
+May 21 10:58:55 myLinuxVM sudo:    yosef : TTY=pts/0 ; PWD=/tmp ; USER=root ; COMMAND=/usr/bin/cp /tmp/logs.zip /var/log/
+May 21 10:58:55 myLinuxVM sudo: pam_unix(sudo:session): session opened for user root(uid=0) by yosef(uid=1000)
+May 21 10:58:55 myLinuxVM sudo: pam_unix(sudo:session): session closed for user root
+May 21 10:59:18 myLinuxVM sshd[2330]: Accepted publickey for yosef from 5.29.21.234 port 38668 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:59:18 myLinuxVM sshd[2330]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:59:18 myLinuxVM systemd-logind[754]: New session 16 of user yosef.
+May 21 10:59:19 myLinuxVM sshd[2386]: Received disconnect from 5.29.21.234 port 38668:11: disconnected by user
+May 21 10:59:19 myLinuxVM sshd[2386]: Disconnected from user yosef 5.29.21.234 port 38668
+May 21 10:59:19 myLinuxVM sshd[2330]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:59:19 myLinuxVM systemd-logind[754]: Session 16 logged out. Waiting for processes to exit.
+May 21 10:59:19 myLinuxVM systemd-logind[754]: Removed session 16.
+May 21 10:59:19 myLinuxVM sshd[2388]: Accepted publickey for yosef from 5.29.21.234 port 38849 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 10:59:19 myLinuxVM sshd[2388]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 10:59:19 myLinuxVM systemd-logind[754]: New session 17 of user yosef.
+May 21 10:59:29 myLinuxVM sshd[2434]: Received disconnect from 5.29.21.234 port 38849:11: disconnected by user
+May 21 10:59:29 myLinuxVM sshd[2434]: Disconnected from user yosef 5.29.21.234 port 38849
+May 21 10:59:29 myLinuxVM sshd[2388]: pam_unix(sshd:session): session closed for user yosef
+May 21 10:59:29 myLinuxVM systemd-logind[754]: Session 17 logged out. Waiting for processes to exit.
+May 21 10:59:29 myLinuxVM systemd-logind[754]: Removed session 17.
+May 21 11:01:55 myLinuxVM sshd[2135]: Received disconnect from 5.29.21.234 port 38791:11: disconnected by user
+May 21 11:01:55 myLinuxVM sshd[2135]: Disconnected from user yosef 5.29.21.234 port 38791
+May 21 11:01:55 myLinuxVM sshd[2070]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:01:55 myLinuxVM systemd-logind[754]: Session 14 logged out. Waiting for processes to exit.
+May 21 11:01:55 myLinuxVM systemd-logind[754]: Removed session 14.
+May 21 11:02:05 myLinuxVM systemd: pam_unix(systemd-user:session): session closed for user yosef
+May 21 11:02:40 myLinuxVM sshd[2439]: Accepted publickey for yosef from 5.29.21.234 port 38736 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:02:40 myLinuxVM sshd[2439]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:02:40 myLinuxVM systemd-logind[754]: New session 18 of user yosef.
+May 21 11:02:40 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:02:41 myLinuxVM sshd[2504]: Received disconnect from 5.29.21.234 port 38736:11: disconnected by user
+May 21 11:02:41 myLinuxVM sshd[2504]: Disconnected from user yosef 5.29.21.234 port 38736
+May 21 11:02:41 myLinuxVM sshd[2439]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:02:41 myLinuxVM systemd-logind[754]: Session 18 logged out. Waiting for processes to exit.
+May 21 11:02:41 myLinuxVM systemd-logind[754]: Removed session 18.
+May 21 11:02:42 myLinuxVM sshd[2506]: Accepted publickey for yosef from 5.29.21.234 port 38771 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:02:42 myLinuxVM sshd[2506]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:02:42 myLinuxVM systemd-logind[754]: New session 20 of user yosef.
+May 21 11:02:55 myLinuxVM sshd[2552]: Received disconnect from 5.29.21.234 port 38771:11: disconnected by user
+May 21 11:02:55 myLinuxVM sshd[2552]: Disconnected from user yosef 5.29.21.234 port 38771
+May 21 11:02:55 myLinuxVM sshd[2506]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:02:55 myLinuxVM systemd-logind[754]: Session 20 logged out. Waiting for processes to exit.
+May 21 11:02:55 myLinuxVM systemd-logind[754]: Removed session 20.
+May 21 11:05:01 myLinuxVM CRON[2560]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+May 21 11:05:01 myLinuxVM CRON[2560]: pam_unix(cron:session): session closed for user root
+May 21 11:08:43 myLinuxVM sshd[2567]: Accepted publickey for yosef from 5.29.21.234 port 38908 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:08:43 myLinuxVM sshd[2567]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:08:43 myLinuxVM systemd-logind[754]: New session 22 of user yosef.
+May 21 11:08:43 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:08:44 myLinuxVM sshd[2633]: Received disconnect from 5.29.21.234 port 38908:11: disconnected by user
+May 21 11:08:44 myLinuxVM sshd[2633]: Disconnected from user yosef 5.29.21.234 port 38908
+May 21 11:08:44 myLinuxVM sshd[2567]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:08:44 myLinuxVM systemd-logind[754]: Session 22 logged out. Waiting for processes to exit.
+May 21 11:08:44 myLinuxVM systemd-logind[754]: Removed session 22.
+May 21 11:08:45 myLinuxVM sshd[2635]: Accepted publickey for yosef from 5.29.21.234 port 38690 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:08:45 myLinuxVM sshd[2635]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:08:45 myLinuxVM systemd-logind[754]: New session 24 of user yosef.
+May 21 11:08:56 myLinuxVM sshd[2681]: Received disconnect from 5.29.21.234 port 38690:11: disconnected by user
+May 21 11:08:56 myLinuxVM sshd[2681]: Disconnected from user yosef 5.29.21.234 port 38690
+May 21 11:08:56 myLinuxVM sshd[2635]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:08:56 myLinuxVM systemd-logind[754]: Session 24 logged out. Waiting for processes to exit.
+May 21 11:08:56 myLinuxVM systemd-logind[754]: Removed session 24.
+May 21 11:11:29 myLinuxVM sshd[2687]: Invalid user pi from 111.77.115.84 port 58760
+May 21 11:11:29 myLinuxVM sshd[2687]: Connection closed by invalid user pi 111.77.115.84 port 58760 [preauth]
+May 21 11:11:30 myLinuxVM sshd[2689]: Invalid user pi from 111.77.115.84 port 58772
+May 21 11:11:30 myLinuxVM sshd[2689]: Connection closed by invalid user pi 111.77.115.84 port 58772 [preauth]
+May 21 11:13:29 myLinuxVM sshd[2695]: Accepted publickey for yosef from 5.29.21.234 port 38690 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:13:29 myLinuxVM sshd[2695]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:13:29 myLinuxVM systemd-logind[754]: New session 25 of user yosef.
+May 21 11:13:29 myLinuxVM systemd: pam_unix(systemd-user:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:14:05 myLinuxVM sudo:    yosef : TTY=pts/0 ; PWD=/tmp ; USER=root ; COMMAND=/usr/bin/cp my_logs_unique.zip /var/log/
+May 21 11:14:05 myLinuxVM sudo: pam_unix(sudo:session): session opened for user root(uid=0) by yosef(uid=1000)
+May 21 11:14:05 myLinuxVM sudo: pam_unix(sudo:session): session closed for user root
+May 21 11:14:14 myLinuxVM sshd[2775]: Accepted publickey for yosef from 5.29.21.234 port 38809 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:14:14 myLinuxVM sshd[2775]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:14:14 myLinuxVM systemd-logind[754]: New session 27 of user yosef.
+May 21 11:14:14 myLinuxVM sshd[2821]: Received disconnect from 5.29.21.234 port 38809:11: disconnected by user
+May 21 11:14:14 myLinuxVM sshd[2821]: Disconnected from user yosef 5.29.21.234 port 38809
+May 21 11:14:14 myLinuxVM sshd[2775]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:14:14 myLinuxVM systemd-logind[754]: Session 27 logged out. Waiting for processes to exit.
+May 21 11:14:14 myLinuxVM systemd-logind[754]: Removed session 27.
+May 21 11:14:15 myLinuxVM sshd[2823]: Accepted publickey for yosef from 5.29.21.234 port 38745 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:14:15 myLinuxVM sshd[2823]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:14:15 myLinuxVM systemd-logind[754]: New session 28 of user yosef.
+May 21 11:14:26 myLinuxVM sshd[2869]: Received disconnect from 5.29.21.234 port 38745:11: disconnected by user
+May 21 11:14:26 myLinuxVM sshd[2869]: Disconnected from user yosef 5.29.21.234 port 38745
+May 21 11:14:26 myLinuxVM sshd[2823]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:14:26 myLinuxVM systemd-logind[754]: Session 28 logged out. Waiting for processes to exit.
+May 21 11:14:26 myLinuxVM systemd-logind[754]: Removed session 28.
+May 21 11:15:01 myLinuxVM CRON[2871]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+May 21 11:15:01 myLinuxVM CRON[2871]: pam_unix(cron:session): session closed for user root
+May 21 11:17:01 myLinuxVM CRON[2876]: pam_unix(cron:session): session opened for user root(uid=0) by (uid=0)
+May 21 11:17:01 myLinuxVM CRON[2876]: pam_unix(cron:session): session closed for user root
+May 21 11:17:05 myLinuxVM sshd[2879]: Accepted publickey for yosef from 5.29.21.234 port 38705 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:17:05 myLinuxVM sshd[2879]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:17:05 myLinuxVM systemd-logind[754]: New session 31 of user yosef.
+May 21 11:17:05 myLinuxVM sshd[2935]: Received disconnect from 5.29.21.234 port 38705:11: disconnected by user
+May 21 11:17:05 myLinuxVM sshd[2935]: Disconnected from user yosef 5.29.21.234 port 38705
+May 21 11:17:05 myLinuxVM systemd-logind[754]: Session 31 logged out. Waiting for processes to exit.
+May 21 11:17:05 myLinuxVM sshd[2879]: pam_unix(sshd:session): session closed for user yosef
+May 21 11:17:05 myLinuxVM systemd-logind[754]: Removed session 31.
+May 21 11:17:06 myLinuxVM sshd[2937]: Accepted publickey for yosef from 5.29.21.234 port 38870 ssh2: RSA SHA256:6m9vdhz4NtrC5sKwybWrazes81gG8q1Eu8DSeztBZD8
+May 21 11:17:06 myLinuxVM sshd[2937]: pam_unix(sshd:session): session opened for user yosef(uid=1000) by (uid=0)
+May 21 11:17:06 myLinuxVM systemd-logind[754]: New session 32 of user yosef.

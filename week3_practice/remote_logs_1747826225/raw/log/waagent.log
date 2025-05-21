@@ -1,0 +1,211 @@
+2025-05-21T10:42:47.169903Z INFO Daemon Azure Linux Agent Version:2.2.46
+2025-05-21T10:42:47.190368Z INFO Daemon OS: ubuntu 22.04
+2025-05-21T10:42:47.196572Z INFO Daemon Python: 3.10.12
+2025-05-21T10:42:47.205310Z INFO Daemon CGroups Status: The cgroup filesystem is ready to use
+2025-05-21T10:42:47.224611Z WARNING Daemon Failed to create a cgroup for the VM Agent; resource usage for the Agent will not be tracked. Error: [CGroupsException] Failed to get paths of agent's cgroups. Error: join() argument must be str, bytes, or os.PathLike object, not 'NoneType'
+2025-05-21T10:42:47.245186Z INFO Daemon Run daemon
+2025-05-21T10:42:47.254773Z INFO Daemon cloud-init is enabled: True
+2025-05-21T10:42:47.259399Z INFO Daemon Using cloud-init for provisioning
+2025-05-21T10:42:47.264405Z INFO Daemon Clean protocol and wireserver endpoint
+2025-05-21T10:42:47.270190Z INFO Daemon Running CloudInit provisioning handler
+2025-05-21T10:42:47.283755Z INFO Daemon Detect protocol endpoints
+2025-05-21T10:42:47.304931Z INFO Daemon Clean protocol and wireserver endpoint
+2025-05-21T10:42:47.318548Z INFO Daemon WireServer endpoint is not found. Rerun dhcp handler
+2025-05-21T10:42:47.320647Z INFO Daemon Test for route to 168.63.129.16
+2025-05-21T10:42:47.325312Z INFO Daemon Route to 168.63.129.16 exists
+2025-05-21T10:42:47.327220Z INFO Daemon Wire server endpoint:168.63.129.16
+2025-05-21T10:42:47.356608Z INFO Daemon Fabric preferred wire protocol version:2015-04-05
+2025-05-21T10:42:47.359421Z INFO Daemon Wire protocol version:2012-11-30
+2025-05-21T10:42:47.370671Z INFO Daemon Server preferred version:2015-04-05
+2025-05-21T10:42:48.882321Z INFO Daemon Found private key matching thumbprint 076F7CB34D443E6599DD11A2F9BF5762365AD220
+2025-05-21T10:42:48.890470Z INFO Daemon Certificate with thumbprint B2B5F660E3FD8FBC8E71B5984849520353DEA4C2 has no matching private key.
+2025-05-21T10:42:48.921352Z INFO Daemon ssh host key found at: /etc/ssh/ssh_host_rsa_key.pub
+2025-05-21T10:42:48.940049Z INFO Daemon Thumbprint obtained from : /etc/ssh/ssh_host_rsa_key.pub
+2025-05-21T10:42:48.945315Z INFO Daemon Finished provisioning
+2025-05-21T10:42:50.068123Z INFO Daemon RDMA capabilities are not enabled, skipping
+2025-05-21T10:42:50.073842Z INFO Daemon Installed Agent WALinuxAgent-2.2.46 is the most current agent
+2025-05-21T10:42:50.543564Z INFO ExtHandler Agent WALinuxAgent-2.2.46 is running as the goal state agent
+2025-05-21T10:42:50.548307Z INFO ExtHandler Distro info: ubuntu 22.04, osutil class being used: UbuntuOSUtil, agent service name: walinuxagent
+2025-05-21T10:42:50.562186Z INFO ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:50.564550Z INFO ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:50.600160Z INFO ExtHandler Start env monitor service.
+2025-05-21T10:42:50.601867Z INFO ExtHandler Configure routes
+2025-05-21T10:42:50.603379Z INFO ExtHandler Gateway:None
+2025-05-21T10:42:50.606461Z INFO ExtHandler Routes:None
+2025-05-21T10:42:50.610399Z INFO ExtHandler Hostname record does not exist, creating [/var/lib/waagent/published_hostname] with hostname [myLinuxVM]
+2025-05-21T10:42:50.641350Z WARNING ExtHandler Dhcp client is not running.
+2025-05-21T10:42:50.647611Z INFO ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:50.652031Z INFO ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:50.659276Z INFO ExtHandler WALinuxAgent-2.2.46 running as process 954
+2025-05-21T10:42:50.680674Z INFO ExtHandler CGroups Status: The cgroup filesystem is ready to use
+2025-05-21T10:42:50.693422Z WARNING ExtHandler Failed to create a cgroup for the VM Agent; resource usage for the Agent will not be tracked. Error: [CGroupsException] Failed to get paths of agent's cgroups. Error: join() argument must be str, bytes, or os.PathLike object, not 'NoneType'
+2025-05-21T10:42:50.748300Z ERROR ExtHandler Command: [iptables -w -t security -L OUTPUT --zero OUTPUT -nxv], return code: [4], result: [iptables v1.8.7 (nf_tables):  CHAIN_ZERO failed (No such file or directory): chain OUTPUT
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+Zeroing chain `OUTPUT'
+]
+2025-05-21T10:42:50.868269Z INFO ExtHandler Route table: [{"Iface": "eth0", "Destination": "0.0.0.0", "Gateway": "10.0.0.1", "Mask": "0.0.0.0", "Flags": "0x0003", "Metric": "100"},{"Iface": "eth0", "Destination": "10.0.0.0", "Gateway": "0.0.0.0", "Mask": "255.255.255.0", "Flags": "0x0001", "Metric": "100"},{"Iface": "eth0", "Destination": "10.0.0.1", "Gateway": "0.0.0.0", "Mask": "255.255.255.255", "Flags": "0x0005", "Metric": "100"},{"Iface": "eth0", "Destination": "168.63.129.16", "Gateway": "10.0.0.1", "Mask": "255.255.255.255", "Flags": "0x0007", "Metric": "100"},{"Iface": "eth0", "Destination": "169.254.169.254", "Gateway": "10.0.0.1", "Mask": "255.255.255.255", "Flags": "0x0007", "Metric": "100"}]
+2025-05-21T10:42:50.941399Z INFO ExtHandler Initial NIC state: [{ "name": "lo", "link": "<LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000\    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00" }, { "name": "eth0", "link": "<BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether 00:0d:3a:46:0b:d8 brd ff:ff:ff:ff:ff:ff" }]
+2025-05-21T10:42:50.979250Z INFO ExtHandler Successfully added Azure fabric firewall rules
+2025-05-21T10:42:50.999244Z INFO ExtHandler Firewall rules:
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            168.63.129.16        owner UID match 0
+       0        0 DROP       tcp  --  *      *       0.0.0.0/0            168.63.129.16        ctstate INVALID,NEW
+
+2025-05-21T10:42:51.015544Z INFO ExtHandler Set block dev timeout: sdb with timeout: 300
+2025-05-21T10:42:51.017944Z INFO ExtHandler Set block dev timeout: sda with timeout: 300
+2025-05-21T10:42:51.681929Z INFO ExtHandler Created slice for walinuxagent extensions system-walinuxagent.extensions.slice
+2025-05-21T10:42:51.690999Z INFO ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:51.692515Z INFO ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:51.922387Z INFO ExtHandler Found private key matching thumbprint 076F7CB34D443E6599DD11A2F9BF5762365AD220
+2025-05-21T10:42:51.925514Z INFO ExtHandler Certificate with thumbprint B2B5F660E3FD8FBC8E71B5984849520353DEA4C2 has no matching private key.
+2025-05-21T10:42:57.356171Z INFO ExtHandler Agent WALinuxAgent-2.2.46 discovered update WALinuxAgent-2.13.1.1 -- exiting
+2025-05-21T10:42:58.126253Z INFO Daemon Agent WALinuxAgent-2.2.46 launched with command 'python3 -u /usr/sbin/waagent -run-exthandlers' is successfully running
+2025-05-21T10:42:58.133331Z INFO Daemon Determined Agent WALinuxAgent-2.13.1.1 to be the latest agent
+2025-05-21T10:42:58.596336Z INFO ExtHandler ExtHandler The agent will now check for updates and then will process extensions. Output to /dev/console will be suspended during those operations.
+2025-05-21T10:42:58.694549Z INFO ExtHandler ExtHandler Azure Linux Agent (Goal State Agent version 2.13.1.1)
+2025-05-21T10:42:58.695007Z INFO ExtHandler ExtHandler OS: ubuntu 22.04
+2025-05-21T10:42:58.695280Z INFO ExtHandler ExtHandler Python: 3.10.12
+2025-05-21T10:42:58.695490Z INFO ExtHandler ExtHandler CPU Arch: x86_64
+2025-05-21T10:42:58.708196Z INFO ExtHandler ExtHandler Distro: ubuntu-22.04; OSUtil: Ubuntu18OSUtil; AgentService: walinuxagent; Python: 3.10.12; Arch: x86_64; systemd: True; systemd_version: systemd 249 (249.11-0ubuntu3.15); LISDrivers: Absent; logrotate: logrotate 3.19.0;
+2025-05-21T10:42:58.708611Z INFO ExtHandler ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:58.708837Z INFO ExtHandler ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:58.708954Z INFO ExtHandler ExtHandler Initializing the goal state...
+2025-05-21T10:42:58.718271Z INFO ExtHandler Fetched a new incarnation for the WireServer goal state [incarnation 1]
+2025-05-21T10:42:58.734902Z INFO ExtHandler ExtHandler HostGAPlugin version: 1.0.8.164
+2025-05-21T10:42:58.735733Z INFO ExtHandler 
+2025-05-21T10:42:58.735846Z INFO ExtHandler Fetched new vmSettings [HostGAPlugin correlation ID: a346991b-2a21-446f-be2a-7118e01cd548 eTag: 16235757399175946525 source: Fabric]
+2025-05-21T10:42:58.736565Z INFO ExtHandler The vmSettings originated via Fabric; will ignore them.
+2025-05-21T10:42:58.737488Z INFO ExtHandler 
+2025-05-21T10:42:58.737753Z INFO ExtHandler Fetching full goal state from the WireServer [incarnation 1]
+2025-05-21T10:42:58.744744Z INFO ExtHandler ExtHandler Downloading artifacts profile blob
+2025-05-21T10:42:58.856010Z INFO ExtHandler Downloaded certificate {'thumbprint': 'B2B5F660E3FD8FBC8E71B5984849520353DEA4C2', 'hasPrivateKey': False}
+2025-05-21T10:42:58.856710Z INFO ExtHandler Downloaded certificate {'thumbprint': '076F7CB34D443E6599DD11A2F9BF5762365AD220', 'hasPrivateKey': True}
+2025-05-21T10:42:58.857368Z INFO ExtHandler Fetch goal state from WireServer completed
+2025-05-21T10:42:58.857870Z INFO ExtHandler ExtHandler Goal state initialization completed.
+2025-05-21T10:42:58.874910Z INFO ExtHandler ExtHandler OpenSSL version: OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)
+
+2025-05-21T10:42:58.880064Z INFO ExtHandler ExtHandler Using iptables [version 1.8.7] to manage firewall rules
+2025-05-21T10:42:58.882763Z INFO ExtHandler ExtHandler Did not find a legacy firewall rule: ['iptables', '-w', '-t', 'security', '-C', 'OUTPUT', '-d', '168.63.129.16', '-p', 'tcp', '-m', 'conntrack', '--ctstate', 'INVALID,NEW', '-j', 'ACCEPT']
+2025-05-21T10:42:58.883014Z INFO ExtHandler ExtHandler Checking state of the firewall
+2025-05-21T10:42:58.924366Z WARNING ExtHandler ExtHandler The firewall rules for Azure Fabric are not setup correctly (the environment thread will fix it): The following rules are missing: ['ACCEPT DNS'] due to: ['iptables: Bad rule (does a matching rule exist in that chain?).\n']. Current state:
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+      60     9050 ACCEPT     tcp  --  *      *       0.0.0.0/0            168.63.129.16        owner UID match 0
+       0        0 DROP       tcp  --  *      *       0.0.0.0/0            168.63.129.16        ctstate INVALID,NEW
+
+2025-05-21T10:42:58.924933Z INFO ExtHandler ExtHandler Setting up persistent firewall rules
+2025-05-21T10:42:58.928347Z INFO ExtHandler ExtHandler The firewalld service is not present on the system
+2025-05-21T10:42:58.928452Z INFO ExtHandler ExtHandler Firewalld service not running/unavailable, trying to set up walinuxagent-network-setup.service
+2025-05-21T10:42:58.928604Z INFO ExtHandler ExtHandler Successfully updated the Binary file /var/lib/waagent/waagent-network-setup.py for firewall setup
+2025-05-21T10:42:58.939172Z INFO ExtHandler ExtHandler Service: walinuxagent-network-setup.service not enabled. Adding it now
+2025-05-21T10:42:59.330291Z INFO ExtHandler ExtHandler Successfully added and enabled the walinuxagent-network-setup.service
+2025-05-21T10:42:59.335030Z INFO ExtHandler ExtHandler WALinuxAgent-2.13.1.1 running as process 1501
+2025-05-21T10:42:59.343503Z INFO ExtHandler ExtHandler [CGI] Using cgroup v2 for resource enforcement and monitoring
+2025-05-21T10:42:59.344011Z INFO ExtHandler ExtHandler [CGI] Agent and extensions resource enforcement and monitoring is not currently supported on cgroup v2
+2025-05-21T10:42:59.344490Z INFO ExtHandler ExtHandler [CGI] Agent cgroups enabled: False
+2025-05-21T10:42:59.345691Z INFO ExtHandler ExtHandler Checking if log collection is allowed at this time [True]. All three conditions must be met: 1. configuration enabled [True], 2. cgroups v1 enabled [False] OR cgroups v2 is in use and v2 resource limiting configuration enabled [True], 3. python supported: [True]
+2025-05-21T10:42:59.346917Z INFO ExtHandler ExtHandler Starting env monitor service.
+2025-05-21T10:42:59.346681Z INFO MonitorHandler ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:59.347847Z INFO ExtHandler ExtHandler Start SendTelemetryHandler service.
+2025-05-21T10:42:59.347739Z INFO MonitorHandler ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:59.347507Z INFO EnvHandler ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:42:59.349068Z INFO EnvHandler ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:42:59.349428Z INFO EnvHandler ExtHandler Configure routes
+2025-05-21T10:42:59.349509Z INFO EnvHandler ExtHandler Gateway:None
+2025-05-21T10:42:59.349561Z INFO EnvHandler ExtHandler Routes:None
+2025-05-21T10:42:59.351307Z INFO SendTelemetryHandler ExtHandler Successfully started the SendTelemetryHandler thread
+2025-05-21T10:42:59.351606Z INFO ExtHandler ExtHandler Start Extension Telemetry service.
+2025-05-21T10:42:59.348800Z INFO MonitorHandler ExtHandler Monitor.NetworkConfigurationChanges is disabled.
+2025-05-21T10:42:59.352136Z INFO MonitorHandler ExtHandler Routing table from /proc/net/route:
+Iface	Destination	Gateway 	Flags	RefCnt	Use	Metric	Mask		MTU	Window	IRTT                                                       
+eth0	00000000	0100000A	0003	0	0	100	00000000	0	0	0                                                                             
+eth0	0000000A	00000000	0001	0	0	100	00FFFFFF	0	0	0                                                                             
+eth0	0100000A	00000000	0005	0	0	100	FFFFFFFF	0	0	0                                                                             
+eth0	10813FA8	0100000A	0007	0	0	100	FFFFFFFF	0	0	0                                                                             
+eth0	FEA9FEA9	0100000A	0007	0	0	100	FFFFFFFF	0	0	0                                                                             
+
+2025-05-21T10:42:59.355252Z INFO TelemetryEventsCollector ExtHandler Extension Telemetry pipeline enabled: True
+2025-05-21T10:42:59.355353Z INFO TelemetryEventsCollector ExtHandler Successfully started the TelemetryEventsCollector thread
+2025-05-21T10:42:59.363444Z INFO ExtHandler ExtHandler Goal State Period: 6 sec. This indicates how often the agent checks for new goal states and reports status.
+2025-05-21T10:42:59.367821Z INFO MonitorHandler ExtHandler Network interfaces:
+Executing ['ip', '-a', '-o', 'link']:
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000\    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP mode DEFAULT group default qlen 1000\    link/ether 00:0d:3a:46:0b:d8 brd ff:ff:ff:ff:ff:ff
+
+Executing ['ip', '-4', '-a', '-o', 'address']:
+1: lo    inet 127.0.0.1/8 scope host lo\       valid_lft forever preferred_lft forever
+2: eth0    inet 10.0.0.4/24 metric 100 brd 10.0.0.255 scope global eth0\       valid_lft forever preferred_lft forever
+
+Executing ['ip', '-6', '-a', '-o', 'address']:
+1: lo    inet6 ::1/128 scope host \       valid_lft forever preferred_lft forever
+2: eth0    inet6 fe80::20d:3aff:fe46:bd8/64 scope link \       valid_lft forever preferred_lft forever
+
+
+2025-05-21T10:42:59.372309Z INFO EnvHandler ExtHandler Using iptables [version 1.8.7] to manage firewall rules
+2025-05-21T10:42:59.378834Z INFO ExtHandler ExtHandler Downloading agent manifest
+2025-05-21T10:42:59.396358Z WARNING EnvHandler ExtHandler The firewall is not configured correctly. The following rules are missing: ['ACCEPT DNS'] due to: ['iptables: Bad rule (does a matching rule exist in that chain?).\n']. Will reset it. Current state:
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+      76    10753 ACCEPT     tcp  --  *      *       0.0.0.0/0            168.63.129.16        owner UID match 0
+       0        0 DROP       tcp  --  *      *       0.0.0.0/0            168.63.129.16        ctstate INVALID,NEW
+
+2025-05-21T10:42:59.428710Z INFO ExtHandler ExtHandler 
+2025-05-21T10:42:59.429197Z INFO ExtHandler ExtHandler ProcessExtensionsGoalState started [incarnation_1 channel: WireServer source: Fabric activity: 6d3f7e4e-82fd-4563-aebc-510e555fc672 correlation c61a1751-c1d8-41b4-85df-029319bb7115 created: 2025-05-21T10:42:26.475113Z]
+2025-05-21T10:42:59.429657Z INFO ExtHandler ExtHandler No extension handlers found, not processing anything.
+2025-05-21T10:42:59.432740Z INFO ExtHandler ExtHandler ProcessExtensionsGoalState completed [incarnation_1 4 ms]
+
+2025-05-21T10:42:59.452554Z INFO EnvHandler ExtHandler The firewall was setup successfully:
+Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+    pkts      bytes target     prot opt in     out     source               destination         
+       0        0 ACCEPT     tcp  --  *      *       0.0.0.0/0            168.63.129.16        tcp dpt:53
+       6     1286 ACCEPT     tcp  --  *      *       0.0.0.0/0            168.63.129.16        owner UID match 0
+       0        0 DROP       tcp  --  *      *       0.0.0.0/0            168.63.129.16        ctstate INVALID,NEW
+
+2025-05-21T10:42:59.472430Z INFO ExtHandler ExtHandler Looking for existing remote access users.
+2025-05-21T10:42:59.473922Z INFO ExtHandler ExtHandler [HEARTBEAT] Agent WALinuxAgent-2.13.1.1 is running as the goal state agent [DEBUG HeartbeatCounter: 0;HeartbeatId: 595CE649-32DF-47A8-8D84-AD43B7E4D26F;UpdateGSErrors: 0;AutoUpdate: 1;UpdateMode: SelfUpdate;]
+2025-05-21T10:47:59.427835Z INFO CollectLogsHandler ExtHandler WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:47:59.427990Z INFO CollectLogsHandler ExtHandler Wire server endpoint:168.63.129.16
+2025-05-21T10:47:59.428105Z INFO CollectLogsHandler ExtHandler Starting log collection...
+2025-05-21T10:48:10.548036Z INFO MainThread LogCollector Running log collector mode normal
+2025-05-21T10:48:10.548519Z INFO MainThread LogCollector WireServer endpoint 168.63.129.16 read from file
+2025-05-21T10:48:10.548593Z INFO MainThread LogCollector Wire server endpoint:168.63.129.16
+2025-05-21T10:48:10.548720Z INFO MainThread LogCollector Forcing an update of the goal state.
+2025-05-21T10:48:10.648407Z INFO MainThread Fetched a new incarnation for the WireServer goal state [incarnation 1]
+2025-05-21T10:48:10.649122Z INFO MainThread 
+2025-05-21T10:48:10.649199Z INFO MainThread Fetching full goal state from the WireServer [incarnation 1]
+2025-05-21T10:48:10.655318Z INFO MainThread Fetch goal state from WireServer completed
+2025-05-21T10:48:10.849421Z INFO MainThread LogCollector Using cgroup v2 for resource enforcement and monitoring
+2025-05-21T10:48:10.849918Z INFO MainThread LogCollector cpu controller for cgroup: azure-walinuxagent-logcollector [/sys/fs/cgroup/azure.slice/azure-walinuxagent.slice/azure-walinuxagent-logcollector.slice/collect-logs.scope]
+2025-05-21T10:48:10.850187Z INFO MainThread LogCollector memory controller for cgroup: azure-walinuxagent-logcollector [/sys/fs/cgroup/azure.slice/azure-walinuxagent.slice/azure-walinuxagent-logcollector.slice/collect-logs.scope]
+2025-05-21T10:48:11.349020Z INFO MainThread LogCollector Log collection successfully completed. Archive can be found at /var/lib/waagent/logcollector/logs.zip and detailed log output can be found at /var/lib/waagent/logcollector/results.txt
+2025-05-21T10:48:12.952297Z INFO MainThread LogCollector {"% Processor Time": 0.068, "Throttled Time (s)": 0.0, "Total Memory Usage (B)": 17154048, "Anon Memory Usage (B)": 17129472, "Cache Memory Usage (B)": 24576, "Max Memory Usage (B)": 21954560, "Swap Memory Usage (B)": 0, "Total Memory Throttled Events": 0, "Total Uncompressed File Size (B)": 283535}
+2025-05-21T10:48:13.549705Z INFO CollectLogsHandler ExtHandler Successfully collected logs. Archive size: 75854 b, elapsed time: 14121 ms.
+2025-05-21T10:48:13.572107Z INFO CollectLogsHandler ExtHandler Successfully uploaded logs.
+2025-05-21T10:57:58.154774Z INFO Daemon Agent WALinuxAgent-2.13.1.1 launched with command 'python3 -u bin/WALinuxAgent-2.13.1.1-py3.9.egg -run-exthandlers' is successfully running
+2025-05-21T11:13:01.979820Z INFO ExtHandler ExtHandler [HEARTBEAT] Agent WALinuxAgent-2.13.1.1 is running as the goal state agent [DEBUG HeartbeatCounter: 1;HeartbeatId: 595CE649-32DF-47A8-8D84-AD43B7E4D26F;UpdateGSErrors: 0;AutoUpdate: 1;UpdateMode: SelfUpdate;]
