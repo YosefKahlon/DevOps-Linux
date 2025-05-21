@@ -171,6 +171,4 @@ ssh -t yosef@<vm-ip> "df -h"> vm_disk_usage.txt
 
 
 
-
-
 </details>
