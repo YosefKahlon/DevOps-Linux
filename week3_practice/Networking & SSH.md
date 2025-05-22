@@ -81,14 +81,14 @@ Now we can create the virtual machine:
 
 ```bash
 az vm create \
->   --resource-group vm-rg \
->   --name myLinuxVM \
->   --image Ubuntu2204 \
-min-user>   --admin-username yosef \
->   --authentication-type ssh \
->   --ssh-key-values "$(cat ~/.ssh/id_rsa.pub)" \
-->   --size Standard_B1s \
->   --location westeurope
+  --resource-group vm-rg \
+  --name myLinuxVM \
+  --image Ubuntu2204 \
+  --admin-username yosef \
+  --authentication-type ssh \
+  --ssh-key-values "$(cat ~/.ssh/id_rsa.pub)" \
+  --size Standard_B1s \
+  --location westeurope
 ```
 
 Once the VM is created, we should verify that SSH (port 22) is open.

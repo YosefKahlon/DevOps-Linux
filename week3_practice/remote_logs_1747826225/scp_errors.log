@@ -1,6 +1,0 @@
-scp: remote readdir("/var/log/private"): Permission denied
-scp: remote readdir "/var/log/private" failed
-scp: remote open "/var/log/btmp": Permission denied
-scp: Download of file /var/log/btmp to ./remote_logs_1747826225/raw/log/btmp failed
-scp: remote readdir("/var/log/chrony"): Permission denied
-scp: remote readdir "/var/log/chrony" failed

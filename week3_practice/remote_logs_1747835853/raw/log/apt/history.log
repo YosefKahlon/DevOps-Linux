@@ -1,6 +1,0 @@
-
-Start-Date: 2025-05-21  10:58:12
-Commandline: apt install zip
-Requested-By: yosef (1000)
-Install: zip:amd64 (3.0-12build2), unzip:amd64 (6.0-26ubuntu3.2, automatic)
-End-Date: 2025-05-21  10:58:20
