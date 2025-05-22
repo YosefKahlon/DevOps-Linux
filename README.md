@@ -8,3 +8,5 @@
 
 * [Advanced Log Report Automation](./week2_Summary/Advanced%20Log%20Report%20Automation.md)
 
+# Part 3
+* [Networking & SSH](./week3_practice/Networking%20&%20SSH.md)
