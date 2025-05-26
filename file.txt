@@ -1,4 +1,2 @@
-same line feature-b
-
-same line feature-a
-
+line
+line
