@@ -1,5 +1,8 @@
 # Week 4 – Daily Practice Tasks 
+---
 
+
+# Branching & Switching 
 This commnad create a new local Git repository and initialize it 
 ```bash
 git inti
@@ -87,7 +90,7 @@ git commit -m "Resolve merge conflict between feature-a and feature-b"
 ```
 -------------------
 
-# Task 3: Rebase and Cherry-Pick 
+# Rebase and Cherry-Pick 
 
 
 Step 1: Rebase feature-a onto main
@@ -162,18 +165,7 @@ What are the difference between `rebase` and `merge`:
 
 `rebase` takes the changes from your branch and replays them as if they were created on top of the latest commit from the target branch. This creates a clean, straight history, but rewrites the past and should be used carefully.
 
-------------------
 
-
-Task 4: GitHub Pull Requests & Code Review 
-
-- Push both branches (`feature-a`, `feature-b`) to your GitHub repository. 
-
-- Create a pull request from one branch into `main`. 
-
-- Request a review from a classmate or mentor. 
-
-- Write at least one constructive code comment in someone else's pull request. 
 
 Task 5: Stash, Amend, and Cleanup 
 
