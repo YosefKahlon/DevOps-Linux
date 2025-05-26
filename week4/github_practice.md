@@ -167,13 +167,39 @@ What are the difference between `rebase` and `merge`:
 
 
 
-Task 5: Stash, Amend, and Cleanup 
+# Stash, Amend, and Cleanup 
 
-- Make local changes and store them using `git stash`. 
+- Step 1: Stash Local Changes
+We made local changes to a file and used git stash to temporarily save them without committing:
+```bash
+git stash push -m "Temporary changes to file.txt"
+```
+This removed the changes from the working directory and saved them in the stash stack.
 
-- Restore the changes using `git stash pop`. 
 
-- Amend your last commit using `git commit --amend`. 
+- Step 2: Restore Stashed Changes
+We restored the stashed changes using:
+```bash
+git stash pop
+```
+This reapplied the latest stash to the working directory and removed it from the stash list.
 
-- Clean up local branches that have already been merged. 
+Step 3: Amend the Last Commit
+After making additional edits and staging them:
+```bash
+git add file.txt
+```
+We amended the last commit to include the new changes:
+```bash
+git commit --amend
+```
+This updated the last commit with the new content without creating a new commit. It also allowed editing the commit message if needed.
 
+- Step 4: Clean Up Merged Local Branches
+To keep the repository clean, we listed and deleted local branches that had already been merged into main:
+```bash
+git branch --merged main #lists all the local branches that have already been fully merged into the main branch.
+
+git branch -d feature-a
+git branch -d feature-b
+```
