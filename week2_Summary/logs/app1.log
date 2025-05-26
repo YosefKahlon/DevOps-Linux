@@ -1,0 +1,6 @@
+ERROR Failed to connect to database
+WARNING Deprecated API used
+INFO Connection retry attempt 1
+CRITICAL System overheating
+ERROR Disk write failure
+INFO User login successful
