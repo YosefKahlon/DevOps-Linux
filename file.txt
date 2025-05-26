@@ -1,5 +1,4 @@
-<<<<<<< HEAD
 same line feature-b
-=======
+
 same line feature-a
->>>>>>> feature-a
+
