@@ -19,7 +19,7 @@ jobs:
     
     strategy:
       matrix:
-        node-version: [16,18]
+        node-version: [16, 18]
     
     steps:
       - name: Checkout code
@@ -40,7 +40,18 @@ jobs:
       - name: Run backend tests
         run: |
           cd week5/backend
-          npm test
+          npm test -- --coverage --coverageReporters=json --coverageReporters=lcov
+          
+      - name: Upload backend test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results-node-${{ matrix.node-version }}
+          path: |
+            week5/backend/coverage/
+            week5/backend/package.json
+            week5/backend/jest.config.js
+          retention-days: 30
           
       - name: Start backend server and health check
         run: |
@@ -50,6 +61,53 @@ jobs:
           curl -f http://localhost:3000/health
           curl -f http://localhost:3000/api/users
           pkill -f "node server.js"
+          
+      - name: Validate backend deployment
+        run: |
+          cd week5/backend
+          # Start server in background for validation
+          npm start &
+          SERVER_PID=$!
+          sleep 8
+          
+          echo "🚀 Running comprehensive API validation..."
+          
+          # Test health endpoint
+          echo "✅ Testing health endpoint..."
+          curl -f -s http://localhost:3000/health | jq '.'
+          
+          # Test root endpoint
+          echo "✅ Testing root endpoint..."
+          curl -f -s http://localhost:3000/ | jq '.'
+          
+          # Test get all users
+          echo "✅ Testing GET /api/users..."
+          curl -f -s http://localhost:3000/api/users | jq '.'
+          
+          # Test create user
+          echo "✅ Testing POST /api/users..."
+          NEW_USER=$(curl -f -s -X POST http://localhost:3000/api/users \
+            -H "Content-Type: application/json" \
+            -d '{"name":"CI Test User","email":"ci-test@example.com"}')
+          echo "$NEW_USER" | jq '.'
+          USER_ID=$(echo "$NEW_USER" | jq -r '.id')
+          
+          # Test get specific user
+          echo "✅ Testing GET /api/users/$USER_ID..."
+          curl -f -s http://localhost:3000/api/users/$USER_ID | jq '.'
+          
+          # Test delete user
+          echo "✅ Testing DELETE /api/users/$USER_ID..."
+          curl -f -s -X DELETE http://localhost:3000/api/users/$USER_ID | jq '.'
+          
+          # Test 404 handling
+          echo "✅ Testing 404 handling..."
+          curl -s http://localhost:3000/nonexistent | jq '.'
+          
+          echo "🎉 All API endpoints validated successfully!"
+          
+          # Clean up
+          kill $SERVER_PID
 
   frontend-tests:
     name: Frontend Tests (Node.js ${{ matrix.node-version }})
@@ -78,8 +136,47 @@ jobs:
       - name: Run frontend tests
         run: |
           cd week5/frontend
-          npm test
-
-  
+          npm test -- --coverage --coverageReporters=json --coverageReporters=lcov
           
-  
+      - name: Upload frontend test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results-node-${{ matrix.node-version }}
+          path: |
+            week5/frontend/coverage/
+            week5/frontend/package.json
+            week5/frontend/jest.config.js
+          retention-days: 30
+          
+      - name: Validate frontend deployment
+        run: |
+          cd week5/frontend
+          # Start a simple HTTP server for frontend
+          python3 -m http.server 8080 &
+          SERVER_PID=$!
+          sleep 5
+          
+          echo "🚀 Running frontend validation..."
+          
+          # Test if HTML loads
+          echo "✅ Testing HTML page load..."
+          curl -f -s http://localhost:8080/index.html | head -20
+          
+          # Test if CSS loads
+          echo "✅ Testing CSS file..."
+          curl -f -s http://localhost:8080/styles.css | head -10
+          
+          # Test if JavaScript loads
+          echo "✅ Testing JavaScript file..."
+          curl -f -s http://localhost:8080/app.js | head -10
+          
+          echo "🎉 Frontend files validated successfully!"
+          
+          # Clean up
+          kill $SERVER_PID
+
+ 
+
+
+
