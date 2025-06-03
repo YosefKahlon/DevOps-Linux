@@ -167,6 +167,65 @@ curl http://localhost:3000/health
 - **Jest** - Testing framework
 - **jsdom** - DOM testing environment
 
+### CI/CD Pipeline
+- **GitHub Actions** - Continuous Integration/Deployment
+- **Matrix Strategy** - Testing across multiple Node.js versions (16, 18)
+- **Artifact Management** - Test results and coverage reports
+- **Discord Notifications** - Real-time build status updates
+- **Deployment Validation** - Automated endpoint testing
+
+## CI/CD Pipeline
+
+The project includes a comprehensive GitHub Actions workflow that:
+
+### 🔄 Automated Testing
+- Runs tests on multiple Node.js versions (16, 18)
+- Executes both backend and frontend test suites
+- Generates coverage reports
+- Validates deployment readiness
+
+### 📦 Artifact Management
+- Uploads test results and coverage reports
+- Maintains 30-day retention policy
+- Organizes artifacts by Node.js version
+
+### 🚀 Deployment Validation
+- Tests all API endpoints with real HTTP requests
+- Validates frontend file serving
+- Comprehensive health checks
+- Automated cleanup processes
+
+### 🔔 Discord Notifications
+- Real-time notifications for job success/failure
+- Rich embed messages with job details
+- Matrix strategy support (separate notifications per Node.js version)
+- Overall deployment summary
+- Direct links to workflow logs for debugging
+
+#### Setting Up Discord Notifications
+1. Create a Discord webhook in your server
+2. Add the webhook URL to GitHub repository secrets as `DISCORD_WEBHOOK_URL`
+3. See `DISCORD_SETUP.md` for detailed instructions
+
+### Workflow Structure
+```
+CI Pipeline
+├── backend-tests (Node.js 16, 18)
+│   ├── Install dependencies
+│   ├── Run tests with coverage
+│   ├── Upload artifacts
+│   ├── Validate deployment
+│   └── Send Discord notification
+├── frontend-tests (Node.js 16, 18)
+│   ├── Install dependencies
+│   ├── Run tests with coverage
+│   ├── Upload artifacts
+│   ├── Validate deployment
+│   └── Send Discord notification
+└── deployment-summary
+    └── Send overall status to Discord
+```
+
 ## Development
 
 ### Backend Development
