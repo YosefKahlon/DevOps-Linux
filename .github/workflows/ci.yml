@@ -9,8 +9,9 @@ on:
     branches:
       - main
   workflow_dispatch:
-    
-    
+
+env:
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
 
 jobs:
   backend-tests:
@@ -109,6 +110,106 @@ jobs:
           # Clean up
           kill $SERVER_PID
 
+      - name: Send Discord notification for backend success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "✅ Backend Tests Passed",
+                   "description": "Backend tests for Node.js ${{ matrix.node-version }} completed successfully",
+                   "color": 3066993,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Duration",
+                       "value": "Job completed at $(date -u)",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+      - name: Send Discord notification for backend failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "❌ Backend Tests Failed",
+                   "description": "Backend tests for Node.js ${{ matrix.node-version }} failed",
+                   "color": 15158332,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "View Logs",
+                       "value": "[Click here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
   frontend-tests:
     name: Frontend Tests (Node.js ${{ matrix.node-version }})
     runs-on: ubuntu-latest
@@ -175,6 +276,181 @@ jobs:
           
           # Clean up
           kill $SERVER_PID
+
+      - name: Send Discord notification for frontend success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "✅ Frontend Tests Passed",
+                   "description": "Frontend tests for Node.js ${{ matrix.node-version }} completed successfully",
+                   "color": 3066993,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Duration",
+                       "value": "Job completed at $(date -u)",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+      - name: Send Discord notification for frontend failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "❌ Frontend Tests Failed",
+                   "description": "Frontend tests for Node.js ${{ matrix.node-version }} failed",
+                   "color": 15158332,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "View Logs",
+                       "value": "[Click here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+  deployment-summary:
+    name: Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Send Discord deployment summary
+        run: |
+          BACKEND_STATUS="${{ needs.backend-tests.result }}"
+          FRONTEND_STATUS="${{ needs.frontend-tests.result }}"
+          
+          # Determine overall status and color
+          if [[ "$BACKEND_STATUS" == "success" && "$FRONTEND_STATUS" == "success" ]]; then
+            OVERALL_STATUS="success"
+            COLOR=3066993
+            TITLE="🎉 Deployment Complete - All Tests Passed"
+            DESCRIPTION="All jobs completed successfully across all Node.js versions"
+          else
+            OVERALL_STATUS="failure"
+            COLOR=15158332
+            TITLE="❌ Deployment Issues Detected"
+            DESCRIPTION="Some jobs failed. Please check the individual job results."
+          fi
+          
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "'"$TITLE"'",
+                   "description": "'"$DESCRIPTION"'",
+                   "color": '"$COLOR"',
+                   "fields": [
+                     {
+                       "name": "Backend Tests",
+                       "value": "'"$BACKEND_STATUS"'",
+                       "inline": true
+                     },
+                     {
+                       "name": "Frontend Tests", 
+                       "value": "'"$FRONTEND_STATUS"'",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Workflow Run",
+                       "value": "[View Details](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": true
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions CI/CD Pipeline"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
 
  
 
