@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo App - User Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>User Management Demo</h1>
+            <p>A simple demo app connecting to Node.js backend API</p>
+        </header>
+
+        <main>
+            <!-- Add User Form -->
+            <section class="add-user-section">
+                <h2>Add New User</h2>
+                <form id="userForm">
+                    <div class="form-group">
+                        <label for="userName">Name:</label>
+                        <input type="text" id="userName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">Email:</label>
+                        <input type="email" id="userEmail" required>
+                    </div>
+                    <button type="submit">Add User</button>
+                </form>
+            </section>
+
+            <!-- Users List -->
+            <section class="users-section">
+                <h2>Users List</h2>
+                <button id="refreshBtn" class="refresh-btn">Refresh Users</button>
+                <div id="loadingMessage" class="loading hidden">Loading...</div>
+                <div id="errorMessage" class="error hidden"></div>
+                <div id="usersList" class="users-list"></div>
+            </section>
+
+            <!-- API Status -->
+            <section class="status-section">
+                <h2>API Status</h2>
+                <div id="apiStatus" class="status"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
