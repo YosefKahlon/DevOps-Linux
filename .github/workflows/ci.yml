@@ -71,22 +71,22 @@ jobs:
           SERVER_PID=$!
           sleep 8
           
-          echo "🚀 Running comprehensive API validation..."
+          echo "Running comprehensive API validation..."
           
           # Test health endpoint
-          echo "✅ Testing health endpoint..."
+          echo "Testing health endpoint..."
           curl -f -s http://localhost:3000/health | jq '.'
           
           # Test root endpoint
-          echo "✅ Testing root endpoint..."
+          echo "Testing root endpoint..."
           curl -f -s http://localhost:3000/ | jq '.'
           
           # Test get all users
-          echo "✅ Testing GET /api/users..."
+          echo "Testing GET /api/users..."
           curl -f -s http://localhost:3000/api/users | jq '.'
           
           # Test create user
-          echo "✅ Testing POST /api/users..."
+          echo "Testing POST /api/users..."
           NEW_USER=$(curl -f -s -X POST http://localhost:3000/api/users \
             -H "Content-Type: application/json" \
             -d '{"name":"CI Test User","email":"ci-test@example.com"}')
@@ -94,18 +94,18 @@ jobs:
           USER_ID=$(echo "$NEW_USER" | jq -r '.id')
           
           # Test get specific user
-          echo "✅ Testing GET /api/users/$USER_ID..."
+          echo "Testing GET /api/users/$USER_ID..."
           curl -f -s http://localhost:3000/api/users/$USER_ID | jq '.'
           
           # Test delete user
-          echo "✅ Testing DELETE /api/users/$USER_ID..."
+          echo "Testing DELETE /api/users/$USER_ID..."
           curl -f -s -X DELETE http://localhost:3000/api/users/$USER_ID | jq '.'
           
           # Test 404 handling
-          echo "✅ Testing 404 handling..."
+          echo "Testing 404 handling..."
           curl -s http://localhost:3000/nonexistent | jq '.'
           
-          echo "🎉 All API endpoints validated successfully!"
+          echo "All API endpoints validated successfully!"
           
           # Clean up
           kill $SERVER_PID
@@ -117,7 +117,7 @@ jobs:
                -X POST \
                -d '{
                  "embeds": [{
-                   "title": "✅ Backend Tests Passed",
+                   "title": "Backend Tests Passed",
                    "description": "Backend tests for Node.js ${{ matrix.node-version }} completed successfully",
                    "color": 3066993,
                    "fields": [
@@ -167,7 +167,7 @@ jobs:
                -X POST \
                -d '{
                  "embeds": [{
-                   "title": "❌ Backend Tests Failed",
+                   "title": "Backend Tests Failed",
                    "description": "Backend tests for Node.js ${{ matrix.node-version }} failed",
                    "color": 15158332,
                    "fields": [
@@ -258,21 +258,21 @@ jobs:
           SERVER_PID=$!
           sleep 5
           
-          echo "🚀 Running frontend validation..."
+          echo "Running frontend validation..."
           
           # Test if HTML loads
-          echo "✅ Testing HTML page load..."
+          echo "Testing HTML page load..."
           curl -f -s http://localhost:8080/index.html | head -20
           
           # Test if CSS loads
-          echo "✅ Testing CSS file..."
+          echo "Testing CSS file..."
           curl -f -s http://localhost:8080/styles.css | head -10
           
           # Test if JavaScript loads
-          echo "✅ Testing JavaScript file..."
+          echo "Testing JavaScript file..."
           curl -f -s http://localhost:8080/app.js | head -10
           
-          echo "🎉 Frontend files validated successfully!"
+          echo "Frontend files validated successfully!"
           
           # Clean up
           kill $SERVER_PID
@@ -284,7 +284,7 @@ jobs:
                -X POST \
                -d '{
                  "embeds": [{
-                   "title": "✅ Frontend Tests Passed",
+                   "title": "Frontend Tests Passed",
                    "description": "Frontend tests for Node.js ${{ matrix.node-version }} completed successfully",
                    "color": 3066993,
                    "fields": [
@@ -334,7 +334,7 @@ jobs:
                -X POST \
                -d '{
                  "embeds": [{
-                   "title": "❌ Frontend Tests Failed",
+                   "title": "Frontend Tests Failed",
                    "description": "Frontend tests for Node.js ${{ matrix.node-version }} failed",
                    "color": 15158332,
                    "fields": [
@@ -396,12 +396,12 @@ jobs:
           if [[ "$BACKEND_STATUS" == "success" && "$FRONTEND_STATUS" == "success" ]]; then
             OVERALL_STATUS="success"
             COLOR=3066993
-            TITLE="🎉 Deployment Complete - All Tests Passed"
+            TITLE="Deployment Complete - All Tests Passed"
             DESCRIPTION="All jobs completed successfully across all Node.js versions"
           else
             OVERALL_STATUS="failure"
             COLOR=15158332
-            TITLE="❌ Deployment Issues Detected"
+            TITLE="Deployment Issues Detected"
             DESCRIPTION="Some jobs failed. Please check the individual job results."
           fi
           
