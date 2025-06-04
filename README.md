@@ -12,3 +12,7 @@
 
 # Part 4
 * [Advanced Git & GitHub](./week4/github_practice.md) 
+
+# Part 5
+* [CI/CD with GitHub Action](./week5/CICD_with_GitHub_Actions.md)
+
