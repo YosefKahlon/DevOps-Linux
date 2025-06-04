@@ -1,0 +1,458 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - week5
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+
+jobs:
+  backend-tests:
+    name: Backend Tests (Node.js ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16, 18]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: week5/backend/package-lock.json
+          
+      - name: Install backend dependencies
+        run: |
+          cd week5/backend
+          npm ci
+          
+      - name: Run backend tests
+        run: |
+          cd week5/backend
+          npm test -- --coverage --coverageReporters=json --coverageReporters=lcov
+          
+      - name: Upload backend test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results-node-${{ matrix.node-version }}
+          path: |
+            week5/backend/coverage/
+            week5/backend/package.json
+            week5/backend/jest.config.js
+          retention-days: 30
+          
+      - name: Start backend server and health check
+        run: |
+          cd week5/backend
+          npm start &
+          sleep 5
+          curl -f http://localhost:3000/health
+          curl -f http://localhost:3000/api/users
+          pkill -f "node server.js"
+          
+      - name: Validate backend deployment
+        run: |
+          cd week5/backend
+          # Start server in background for validation
+          npm start &
+          SERVER_PID=$!
+          sleep 8
+          
+          echo "Running comprehensive API validation..."
+          
+          # Test health endpoint
+          echo "Testing health endpoint..."
+          curl -f -s http://localhost:3000/health | jq '.'
+          
+          # Test root endpoint
+          echo "Testing root endpoint..."
+          curl -f -s http://localhost:3000/ | jq '.'
+          
+          # Test get all users
+          echo "Testing GET /api/users..."
+          curl -f -s http://localhost:3000/api/users | jq '.'
+          
+          # Test create user
+          echo "Testing POST /api/users..."
+          NEW_USER=$(curl -f -s -X POST http://localhost:3000/api/users \
+            -H "Content-Type: application/json" \
+            -d '{"name":"CI Test User","email":"ci-test@example.com"}')
+          echo "$NEW_USER" | jq '.'
+          USER_ID=$(echo "$NEW_USER" | jq -r '.id')
+          
+          # Test get specific user
+          echo "Testing GET /api/users/$USER_ID..."
+          curl -f -s http://localhost:3000/api/users/$USER_ID | jq '.'
+          
+          # Test delete user
+          echo "Testing DELETE /api/users/$USER_ID..."
+          curl -f -s -X DELETE http://localhost:3000/api/users/$USER_ID | jq '.'
+          
+          # Test 404 handling
+          echo "Testing 404 handling..."
+          curl -s http://localhost:3000/nonexistent | jq '.'
+          
+          echo "All API endpoints validated successfully!"
+          
+          # Clean up
+          kill $SERVER_PID
+
+      - name: Send Discord notification for backend success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "Backend Tests Passed",
+                   "description": "Backend tests for Node.js ${{ matrix.node-version }} completed successfully",
+                   "color": 3066993,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Duration",
+                       "value": "Job completed at $(date -u)",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+      - name: Send Discord notification for backend failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "Backend Tests Failed",
+                   "description": "Backend tests for Node.js ${{ matrix.node-version }} failed",
+                   "color": 15158332,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "View Logs",
+                       "value": "[Click here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+  frontend-tests:
+    name: Frontend Tests (Node.js ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [16, 18]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: week5/frontend/package-lock.json
+          
+      - name: Install frontend dependencies
+        run: |
+          cd week5/frontend
+          npm ci
+          
+      - name: Run frontend tests
+        run: |
+          cd week5/frontend
+          npm test -- --coverage --coverageReporters=json --coverageReporters=lcov
+          
+      - name: Upload frontend test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results-node-${{ matrix.node-version }}
+          path: |
+            week5/frontend/coverage/
+            week5/frontend/package.json
+            week5/frontend/jest.config.js
+          retention-days: 30
+          
+      - name: Validate frontend deployment
+        run: |
+          cd week5/frontend
+          # Start a simple HTTP server for frontend
+          python3 -m http.server 8080 &
+          SERVER_PID=$!
+          sleep 5
+          
+          echo "Running frontend validation..."
+          
+          # Test if HTML loads
+          echo "Testing HTML page load..."
+          curl -f -s http://localhost:8080/index.html | head -20
+          
+          # Test if CSS loads
+          echo "Testing CSS file..."
+          curl -f -s http://localhost:8080/styles.css | head -10
+          
+          # Test if JavaScript loads
+          echo "Testing JavaScript file..."
+          curl -f -s http://localhost:8080/app.js | head -10
+          
+          echo "Frontend files validated successfully!"
+          
+          # Clean up
+          kill $SERVER_PID
+
+      - name: Send Discord notification for frontend success
+        if: success()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "Frontend Tests Passed",
+                   "description": "Frontend tests for Node.js ${{ matrix.node-version }} completed successfully",
+                   "color": 3066993,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Duration",
+                       "value": "Job completed at $(date -u)",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+      - name: Send Discord notification for frontend failure
+        if: failure()
+        run: |
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "Frontend Tests Failed",
+                   "description": "Frontend tests for Node.js ${{ matrix.node-version }} failed",
+                   "color": 15158332,
+                   "fields": [
+                     {
+                       "name": "Job",
+                       "value": "${{ github.job }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Node.js Version",
+                       "value": "${{ matrix.node-version }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "View Logs",
+                       "value": "[Click here](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": false
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+  deployment-summary:
+    name: Deployment Summary
+    runs-on: ubuntu-latest
+    needs: [backend-tests, frontend-tests]
+    if: always()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Send Discord deployment summary
+        run: |
+          BACKEND_STATUS="${{ needs.backend-tests.result }}"
+          FRONTEND_STATUS="${{ needs.frontend-tests.result }}"
+          
+          # Determine overall status and color
+          if [[ "$BACKEND_STATUS" == "success" && "$FRONTEND_STATUS" == "success" ]]; then
+            OVERALL_STATUS="success"
+            COLOR=3066993
+            TITLE="Deployment Complete - All Tests Passed"
+            DESCRIPTION="All jobs completed successfully across all Node.js versions"
+          else
+            OVERALL_STATUS="failure"
+            COLOR=15158332
+            TITLE="Deployment Issues Detected"
+            DESCRIPTION="Some jobs failed. Please check the individual job results."
+          fi
+          
+          curl -H "Content-Type: application/json" \
+               -X POST \
+               -d '{
+                 "embeds": [{
+                   "title": "'"$TITLE"'",
+                   "description": "'"$DESCRIPTION"'",
+                   "color": '"$COLOR"',
+                   "fields": [
+                     {
+                       "name": "Backend Tests",
+                       "value": "'"$BACKEND_STATUS"'",
+                       "inline": true
+                     },
+                     {
+                       "name": "Frontend Tests", 
+                       "value": "'"$FRONTEND_STATUS"'",
+                       "inline": true
+                     },
+                     {
+                       "name": "Repository",
+                       "value": "${{ github.repository }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Branch",
+                       "value": "${{ github.ref_name }}",
+                       "inline": true
+                     },
+                     {
+                       "name": "Commit",
+                       "value": "[${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})",
+                       "inline": true
+                     },
+                     {
+                       "name": "Workflow Run",
+                       "value": "[View Details](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                       "inline": true
+                     }
+                   ],
+                   "timestamp": "'$(date -u +%Y-%m-%dT%H:%M:%SZ)'",
+                   "footer": {
+                     "text": "GitHub Actions CI/CD Pipeline"
+                   }
+                 }]
+               }' \
+               ${{ env.DISCORD_WEBHOOK }}
+
+ 
+
+
+
