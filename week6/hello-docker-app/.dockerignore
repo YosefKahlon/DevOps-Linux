@@ -1,0 +1,22 @@
+
+# Exclude node_modules, as dependencies will be installed inside the container
+node_modules
+npm-debug.log
+
+# Exclude build artifacts or local development files
+build
+dist
+.env
+
+# Exclude version control directories and files
+.git
+.gitignore
+.gitattributes
+
+# Exclude Docker related files if they are in the context but not needed in image
+Dockerfile
+.dockerignore
+
+# Exclude OS-specific files
+.DS_Store
+Thumbs.db
