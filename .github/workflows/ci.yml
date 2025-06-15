@@ -1,13 +1,13 @@
 name: CI Workflow
 
 on:
-  push:
-    branches:
-      - week5
-      - main
-  pull_request:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - week5
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
   workflow_dispatch:
 
 env:
