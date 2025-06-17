@@ -32,10 +32,16 @@ jobs:
         run: |
           docker-compose -f week7/docker-compose.yml up --build -d
 
+      - name: Get running containers
+        run: |
+          docker ps -a
+
       - name: Wait for backend healthcheck
         run: |
+          CONTAINER_ID=$(docker ps -qf "name=backend")
+          echo "Backend container ID: $CONTAINER_ID"
           for i in {1..10}; do
-            STATUS=$(docker inspect --format='{{json .State.Health.Status}}' week7-backend-1 || echo "none")
+            STATUS=$(docker inspect --format='{{json .State.Health.Status}}' $CONTAINER_ID || echo "none")
             echo "Backend health: $STATUS"
             if [ "$STATUS" = '"healthy"' ]; then exit 0; fi
             sleep 5
