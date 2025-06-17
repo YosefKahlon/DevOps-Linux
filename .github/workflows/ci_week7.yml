@@ -3,8 +3,7 @@
 name: CI - Docker Compose Week 7
 
 on:
-  push:
-    branches: [ week7 ]
+    workflow_dispatch:
 
 
 jobs:
@@ -13,7 +12,6 @@ jobs:
     services:
       docker:
         image: docker:24.0.5-dind
-        privileged: true
         options: --dns 8.8.8.8
     steps:
       - name: Checkout code
