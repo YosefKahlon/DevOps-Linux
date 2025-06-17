@@ -13,44 +13,44 @@ jobs:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔧 Build services
-        run: docker compose -f DevOps-Linux/week7/docker-compose.yml build
-        working-directory: .
+      - name: 🔧 Build Docker containers
+        run: docker compose build
+        working-directory: DevOps-Linux/week7
 
       - name: 🚀 Start containers
-        run: docker compose -f DevOps-Linux/week7/docker-compose.yml up -d
-        working-directory: .
+        run: docker compose up -d
+        working-directory: DevOps-Linux/week7
 
-      - name: 💤 Wait for DB to become healthy
+      - name: 💤 Wait for DB healthcheck
         run: |
           timeout=30
           for i in $(seq 1 $timeout); do
-            status=$(docker inspect --format='{{.State.Health.Status}}' $(docker compose -f DevOps-Linux/week7/docker-compose.yml ps -q db))
+            status=$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q db))
             echo "DB health: $status"
             [ "$status" = "healthy" ] && break
             sleep 1
           done
-        working-directory: .
+        working-directory: DevOps-Linux/week7
 
-      - name: 🔍 Test health endpoint
+      - name: 🧪 Test API endpoints
         run: |
           curl --fail http://localhost:3000/health
           curl --fail http://localhost:3000/api/users
-        working-directory: .
+        working-directory: DevOps-Linux/week7
 
-      - name: 🧾 Save logs if failed
+      - name: 📜 Capture logs on failure
         if: failure()
-        run: docker compose -f DevOps-Linux/week7/docker-compose.yml logs > full_logs.txt
-        working-directory: .
+        run: docker compose logs > full_logs.txt
+        working-directory: DevOps-Linux/week7
 
       - name: 📤 Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: docker-compose-logs
-          path: full_logs.txt
+          path: DevOps-Linux/week7/full_logs.txt
 
-      - name: 🧹 Tear down
+      - name: 🧹 Shut down containers
         if: always()
-        run: docker compose -f DevOps-Linux/week7/docker-compose.yml down --volumes
-        working-directory: .
+        run: docker compose down --volumes
+        working-directory: DevOps-Linux/week7
