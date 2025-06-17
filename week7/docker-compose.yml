@@ -37,7 +37,8 @@ services:
       DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
       PORT: 3000
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
     volumes:
