@@ -30,8 +30,7 @@ jobs:
 
       - name: Build and start services
         run: |
-          cd week7
-          docker-compose up --build -d
+          docker-compose -f week7/docker-compose.yml up --build -d
 
       - name: Wait for backend healthcheck
         run: |
@@ -41,17 +40,16 @@ jobs:
             if [ "$STATUS" = '"healthy"' ]; then exit 0; fi
             sleep 5
           done
-          echo "Backend did not become healthy in time" && docker-compose logs backend && exit 1
+          echo "Backend did not become healthy in time" && docker-compose -f week7/docker-compose.yml logs backend && exit 1
 
       - name: Run end-to-end tests
         run: |
-          # Example: curl health endpoint
           curl -f http://localhost:3000/health
 
       - name: Show logs on failure
         if: failure()
         run: |
-          docker-compose logs > compose-logs.txt || true
+          docker-compose -f week7/docker-compose.yml logs > week7/compose-logs.txt || true
 
       - name: Upload logs as artifact
         if: always()
@@ -63,4 +61,4 @@ jobs:
       - name: Tear down
         if: always()
         run: |
-          docker-compose down -v
+          docker-compose -f week7/docker-compose.yml down -v
