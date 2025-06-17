@@ -3,6 +3,9 @@
 name: CI - Docker Compose Week 7
 
 on:
+    push:
+        branches:
+            - week7
     workflow_dispatch:
 
 
