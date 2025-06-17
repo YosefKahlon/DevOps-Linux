@@ -44,7 +44,7 @@ services:
     volumes:
       - ./backend/.env:/app/.env
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "curl", "-v", "-f", "http://localhost:3000/health"] # Added -v for verbose output
       interval: 10s
       timeout: 5s
       retries: 5
