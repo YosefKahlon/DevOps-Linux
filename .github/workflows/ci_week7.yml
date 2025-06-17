@@ -4,8 +4,8 @@ name: CI - Docker Compose Week 7
 
 on:
     push:
-        branches:
-            - week7
+        # branches:
+        #     - week7
     workflow_dispatch:
 
 
@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload logs as artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: compose-logs
           path: week7/compose-logs.txt
