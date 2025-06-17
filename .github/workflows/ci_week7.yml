@@ -32,6 +32,17 @@ jobs:
           done
         working-directory: week7
 
+      - name: 💤 Wait for backend to become healthy
+        run: |
+          timeout=30
+          for i in $(seq 1 $timeout); do
+            status=$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q backend))
+            echo "Backend health: $status"
+            [ "$status" = "healthy" ] && break
+            sleep 1
+          done
+        working-directory: week7
+
       - name: 🧪 Test API endpoints
         run: |
           curl --fail http://localhost:3000/health
