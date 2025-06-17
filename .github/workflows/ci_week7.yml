@@ -15,11 +15,11 @@ jobs:
 
       - name: 🔧 Build Docker containers
         run: docker compose build
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
 
       - name: 🚀 Start containers
         run: docker compose up -d
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
 
       - name: 💤 Wait for DB healthcheck
         run: |
@@ -30,27 +30,27 @@ jobs:
             [ "$status" = "healthy" ] && break
             sleep 1
           done
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
 
       - name: 🧪 Test API endpoints
         run: |
           curl --fail http://localhost:3000/health
           curl --fail http://localhost:3000/api/users
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
 
       - name: 📜 Capture logs on failure
         if: failure()
         run: docker compose logs > full_logs.txt
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
 
       - name: 📤 Upload logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: docker-compose-logs
-          path: DevOps-Linux/week7/full_logs.txt
+          path: week7/full_logs.txt
 
       - name: 🧹 Shut down containers
         if: always()
         run: docker compose down --volumes
-        working-directory: DevOps-Linux/week7
+        working-directory: week7
