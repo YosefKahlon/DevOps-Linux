@@ -1,70 +1,72 @@
-# GitHub Actions CI for Docker Compose (Week 7)
-
-name: CI - Docker Compose Week 7
+name: End-to-End Tests
 
 on:
-    push:
-        branches:
-            - week7
-    workflow_dispatch:
+  push:
+    branches: [week7]
 
 
 jobs:
-  e2e-tests:
+  e2e:
+    name: Run Docker Compose End-to-End Tests
     runs-on: ubuntu-latest
-    services:
-      docker:
-        image: docker:24.0.5-dind
-        options: --dns 8.8.8.8
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
-      - name: Set up Docker Compose
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+      - name: Set up Docker cache
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-      - name: Build and start services
-        run: |
-          docker-compose -f week7/docker-compose.yml up --build -d
+      - name: Build Docker containers
+        run: docker-compose build
 
-      - name: Get running containers
-        run: |
-          docker ps -a
+      - name: Run Docker Compose (detached)
+        run: docker-compose up -d
 
-      - name: Wait for backend healthcheck
+      - name: Wait for services to be healthy
         run: |
-          CONTAINER_ID=$(docker ps -qf "name=backend")
-          echo "Backend container ID: $CONTAINER_ID"
-          for i in {1..10}; do
-            STATUS=$(docker inspect --format='{{json .State.Health.Status}}' $CONTAINER_ID || echo "none")
-            echo "Backend health: $STATUS"
-            if [ "$STATUS" = '"healthy"' ]; then exit 0; fi
-            sleep 5
+          set -e
+          timeout=30
+          echo "Waiting up to $timeout seconds for services to become healthy..."
+          for i in $(seq 1 $timeout); do
+            unhealthy=$(docker inspect --format='{{.State.Health.Status}}' $(docker-compose ps -q db || true) || echo "unhealthy")
+            if [ "$unhealthy" == "healthy" ]; then
+              echo "DB is healthy."
+              break
+            fi
+            sleep 1
           done
-          echo "Backend did not become healthy in time" && docker-compose -f week7/docker-compose.yml logs backend && exit 1
 
-      - name: Run end-to-end tests
+      - name: Run health check and test endpoint
         run: |
-          curl -f http://localhost:3000/health
+          echo "Testing health endpoint..."
+          curl --fail http://localhost:3000/health
 
-      - name: Show logs on failure
+          echo "Testing user GET (expecting empty array or success)..."
+          curl --fail http://localhost:3000/api/users
+
+      - name: Handle failed services
         if: failure()
         run: |
-          docker-compose -f week7/docker-compose.yml logs > week7/compose-logs.txt || true
+          echo "One or more steps failed. Showing logs..."
+          docker-compose logs > full_logs.txt
+          cat full_logs.txt
 
       - name: Upload logs as artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: compose-logs
-          path: week7/compose-logs.txt
+          name: docker-compose-logs
+          path: full_logs.txt
 
-      - name: Tear down
+      - name: Shut down containers
         if: always()
-        run: |
-          docker-compose -f week7/docker-compose.yml down -v
+        run: docker-compose down --volumes

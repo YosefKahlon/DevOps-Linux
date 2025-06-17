@@ -30,4 +30,4 @@ async function startServerWithDbRetry(retries = 10, delayMs = 2000) {
   }
 }
 
-// startServerWithDbRetry();
+startServerWithDbRetry();

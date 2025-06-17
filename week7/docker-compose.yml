@@ -13,12 +13,11 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U myuser -d mydb"]
+      test: ["CMD-SHELL", "pg_isready -U myuser"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 30s # Increased from 10s
-
+      retries: 5  
+ 
   # pgadmin:
   #   image: dpage/pgadmin4
   #   environment:
@@ -36,19 +35,19 @@ services:
     environment:
       DATABASE_URL: postgres://myuser:mypassword@db:5432/mydb
       PORT: 3000
-    # depends_on:
-    #   db:
-    #     condition: service_healthy
+    depends_on:
+      db:
+        condition: service_healthy
     networks:
       - app-network
     volumes:
       - ./backend/.env:/app/.env
     healthcheck:
-      test: ["CMD", "curl", "-v", "-f", "http://localhost:3000/health"] # Added -v for verbose output
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 30s # Increased from 10s
+    
 
   # frontend:
   #   build:
