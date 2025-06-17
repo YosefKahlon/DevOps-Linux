@@ -8,6 +8,7 @@ app.use(cors());
 
 // Health check endpoint
 app.get('/health', (req, res) => {
+    console.log('Health check endpoint hit');
   res.status(200).json({ status: 'UP' });
 });
 
