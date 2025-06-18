@@ -3,6 +3,7 @@ name: End-to-End Tests
 on:
   push:
     branches: [week7]
+  workflow_dispatch:  
 
 
 jobs:
@@ -66,7 +67,7 @@ jobs:
         run: docker compose down --volumes
         working-directory: week7
 
-        
+
   deploy:
     needs: e2e
     runs-on: ubuntu-latest
