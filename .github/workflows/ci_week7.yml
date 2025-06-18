@@ -1,0 +1,106 @@
+name: End-to-End Tests
+
+on:
+  push:
+    branches: [week7]
+  workflow_dispatch:  
+
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker containers
+        run: docker compose build
+        working-directory: week7
+
+      - name: Start containers
+        run: docker compose up -d
+        working-directory: week7
+
+      - name: Wait for DB healthcheck
+        run: |
+          timeout=30
+          for i in $(seq 1 $timeout); do
+            status=$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q db))
+            echo "DB health: $status"
+            [ "$status" = "healthy" ] && break
+            sleep 1
+          done
+        working-directory: week7
+
+      - name: Wait for backend to become healthy
+        run: |
+          timeout=30
+          for i in $(seq 1 $timeout); do
+            status=$(docker inspect --format='{{.State.Health.Status}}' $(docker compose ps -q backend))
+            echo "Backend health: $status"
+            [ "$status" = "healthy" ] && break
+            sleep 1
+          done
+        working-directory: week7
+
+      - name: Test API endpoints
+        run: |
+          curl --fail http://localhost:3000/health
+          curl --fail http://localhost:3000/api/users
+        working-directory: week7
+
+      - name: Capture logs on failure
+        if: failure()
+        run: docker compose logs > full_logs.txt
+        working-directory: week7
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-compose-logs
+          path: week7/full_logs.txt
+
+      - name: Shut down containers
+        if: always()
+        run: docker compose down --volumes
+        working-directory: week7
+
+
+  deploy:
+    needs: e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.AZURE_VM_KEY }}" > ~/.ssh/myDockerVM_key.pem
+          chmod 600 ~/.ssh/myDockerVM_key.pem
+
+      - name: Copy files to Azure VM (excluding frontend)
+        run: |
+          rsync -av --exclude=frontend -e "ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no" week7/ ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }}:~/week7/
+
+      - name: Deploy with Docker Compose on Azure VM
+        run: |
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+            cd ~/week7 && docker-compose up --build -d
+          '
+
+      - name: Check service health on Azure VM
+        run: |
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+            curl -f http://localhost:3000/health
+          '
+
+      - name: Shut down containers on Azure VM
+        if: always()
+        run: |
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+            cd ~/week7 && docker-compose down --volumes
+          '
