@@ -73,6 +73,73 @@ In this example we **Defined a `docker-compose.yml` file** with a basic multi-se
    docker-compose logs backend
    ```
 
+ # Azure VM Setup and Manual Deployment
+
+1. **Created an Azure Virtual Machine (VM):**
+   - Used the Azure Portal or Azure CLI to create a Linux VM (Ubuntu) with a public IP and an admin username (`azureuser`).
+   - Downloaded the private SSH key (`myDockerVM_key.pem`) for secure access.
+   - Store the key in ~/.ssh/ folder.
+
+2. **Configured SSH Access:**
+   - Set permissions on the key file using `chmod 600 ~/.ssh/myDockerVM_key.pem`.
+   - Connected to the VM using:
+     ```bash
+     ssh -i ~/.ssh/myDockerVM_key.pem azureuser@<vm-public-ip>
+     ```
+
+3. **Installed Docker and Docker Compose on the VM:**
+   - Updated the package list and installed Docker:
+     ```bash
+     sudo apt-get update
+     sudo apt-get install -y docker.io
+     sudo systemctl enable --now docker
+     sudo usermod -aG docker $USER
+     ```
+   - Installed Docker Compose:
+     ```bash
+     sudo apt-get install -y docker-compose
+     ```
+   - Logged out and back in (or used `newgrp docker`) to apply Docker group permissions.
+
+4. **Deployed the Application:**
+   - Copied the application files (excluding the `frontend` folder) from the local machine to the VM using `rsync`:
+     ```bash
+     rsync -av --exclude=frontend -e "ssh -i ~/.ssh/myDockerVM_key.pem" /home/yosef/Documents/github/DevOps-Linux/DevOps-Linux/week7/ azureuser@<vm-public-ip>:~/week7/
+     ```
+   - Navigated to the app directory on the VM:
+     ```bash
+     cd ~/week7
+     ```
+
+5. **Started the Application with Docker Compose:**
+   - Built and started the containers:
+     ```bash
+     docker-compose up --build -d
+     ```
+   - Verified that the containers are running:
+     ```bash
+     docker-compose ps
+     ```
+
+6. **Exposed the Application on a Public Port:**
+   - Ensured port 3000 was open in Azure Network Security Group settings.
+   - Accessed the running application from a browser or with `curl`:
+     ```
+     http://<vm-public-ip>:3000
+     ```
+
+7. **Tested the API:**
+   - Used `curl` to test the health endpoint and add users:
+     ```bash
+     curl http://localhost:3000/health
+     curl -X POST http://localhost:3000/api/users -H "Content-Type: application/json" -d '{"name": "Alice", "email": "alice@example.com"}'
+     ```
+
+**Result:**  
+The application is now running on the Azure VM, accessible from the public IP on port 3000, and can be managed using Docker Compose.
 
 
+# Deploy to Azure VM via CI/CD 
 
+insted of manuly we can use automte tool like github action 
+ 
