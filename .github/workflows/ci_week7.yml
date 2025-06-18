@@ -88,11 +88,19 @@ jobs:
 
       - name: Deploy with Docker Compose on Azure VM
         run: |
-          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} "
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
             cd ~/week7 && docker-compose up --build -d
-          "
+          '
 
       - name: Check service health on Azure VM
         run: |
-          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} "
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
             curl -f http://localhost:3000/health
+          '
+
+      - name: Shut down containers on Azure VM
+        if: always()
+        run: |
+          ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+            cd ~/week7 && docker-compose down --volumes
+          '
