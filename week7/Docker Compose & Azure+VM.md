@@ -139,7 +139,48 @@ In this example we **Defined a `docker-compose.yml` file** with a basic multi-se
 The application is now running on the Azure VM, accessible from the public IP on port 3000, and can be managed using Docker Compose.
 
 
-# Deploy to Azure VM via CI/CD 
+# Deploy to Azure VM via CI/CD
 
-insted of manuly we can use automte tool like github action 
- 
+Instead of deploying manually, we automated the deployment process using GitHub Actions. This allows us to build, test, and deploy our application to the Azure VM automatically whenever changes are pushed to the repository.
+
+
+**Key parts of the deploy job:**
+
+```yaml
+deploy:
+  needs: e2e
+  runs-on: ubuntu-latest
+
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.AZURE_VM_KEY }}" > ~/.ssh/myDockerVM_key.pem
+        chmod 600 ~/.ssh/myDockerVM_key.pem
+
+    - name: Copy files to Azure VM (excluding frontend)
+      run: |
+        rsync -av --exclude=frontend -e "ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no" week7/ ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }}:~/week7/
+
+    - name: Deploy with Docker Compose on Azure VM
+      run: |
+        ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+          cd ~/week7 && docker-compose up --build -d
+        '
+
+    - name: Check service health on Azure VM
+      run: |
+        ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+          curl -f http://localhost:3000/health
+        '
+
+    - name: Shut down containers on Azure VM
+      if: always()
+      run: |
+        ssh -i ~/.ssh/myDockerVM_key.pem -o StrictHostKeyChecking=no ${{ secrets.AZURE_VM_USER }}@${{ secrets.AZURE_VM_HOST }} '
+          cd ~/week7 && docker-compose down --volumes
+        '
+```
