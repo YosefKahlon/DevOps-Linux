@@ -19,6 +19,11 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+
     - name: Build and push Docker image to ACR
       uses: docker/build-push-action@v2
       with:
@@ -35,7 +40,7 @@ jobs:
         script: |
           az login --identity
           az acr login --name ${{ secrets.ACR_NAME }}
-          sudo docker pull ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
-          sudo docker stop simple-web-app || true
-          sudo docker rm simple-web-app || true
-          sudo docker run -d --name simple-web-app -p 80:3000 ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+          docker pull ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+          docker stop simple-web-app || true
+          docker rm simple-web-app || true
+          docker run -d --name simple-web-app -p 80:3000 ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
