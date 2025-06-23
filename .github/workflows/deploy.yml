@@ -40,6 +40,8 @@ jobs:
         username: ${{ secrets.AZURE_VM_USERNAME }}
         key: ${{ secrets.AZURE_VM_SSH_KEY }}
         script: |
+          sudo systemctl stop nginx || true
+          sudo systemctl disable nginx || true
           az login --identity
           az acr login --name ${{ secrets.ACR_NAME }}
           docker pull ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
