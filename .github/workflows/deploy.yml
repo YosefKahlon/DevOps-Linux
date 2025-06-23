@@ -1,0 +1,41 @@
+name: Deploy to Azure VM
+
+on:
+  push:
+    branches:
+      - week8
+  workflow_dispatch:  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build and push Docker image to ACR
+      uses: docker/build-push-action@v2
+      with:
+        context: week8/simple-web-app
+        push: true
+        tags: ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+
+    - name: Deploy to Azure VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AZURE_VM_IP }}
+        username: ${{ secrets.AZURE_VM_USERNAME }}
+        key: ${{ secrets.AZURE_VM_SSH_KEY }}
+        script: |
+          az login --identity
+          az acr login --name ${{ secrets.ACR_NAME }}
+          sudo docker pull ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+          sudo docker stop simple-web-app || true
+          sudo docker rm simple-web-app || true
+          sudo docker run -d --name simple-web-app -p 80:3000 ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
