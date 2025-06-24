@@ -1,9 +1,6 @@
 name: Deploy to Azure VM
 
 on:
-  push:
-    branches:
-      - week8
   workflow_dispatch:  
 
 jobs:

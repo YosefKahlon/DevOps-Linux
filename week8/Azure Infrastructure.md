@@ -31,7 +31,7 @@ Next, we'''ll create a virtual machine (VM) inside our new resource group.
 ```bash
 az vm create --resource-group DevOps --name myVM --image Ubuntu2204 --admin-username azureuser --generate-ssh-keys
 ```
-Here'''s an explanation of the parameters used in this command:
+
 -   `--resource-group DevOps`: This specifies that the VM will be created in the `DevOps` resource group we created earlier.
 -   `--name myVM`: This sets the name of the virtual machine to `myVM`.
 -   `--image Ubuntu2204`: This specifies the operating system image for the VM. In this case, it'''s Ubuntu 22.04 LTS. You can find other images using `az vm image list --output table`.
@@ -42,17 +42,17 @@ Here'''s an explanation of the parameters used in this command:
 
 After the VM is created, you can connect to it using SSH. The output of the `az vm create` command includes the public IP address of your VM.
 
-Based on the output you provided, your VM's public IP is `52.138.205.52`.
+
 
 The `--generate-ssh-keys` flag used your existing SSH public key (`~/.ssh/id_rsa.pub`) to configure access to the new VM. The corresponding private key to connect to the VM is located at `~/.ssh/id_rsa`.
 
 To connect to your VM, you can use the following command:
 ```bash
-ssh azureuser@52.138.205.52
+ssh azureuser@Public IP
 ```
 If that doesn't work, you may need to explicitly specify the path to your private key:
 ```bash
-ssh -i ~/.ssh/id_rsa azureuser@52.138.205.52
+ssh -i ~/.ssh/id_rsa azureuser@Public IP
 ```
 
 
@@ -169,7 +169,7 @@ az vm run-command invoke \
 
 Once the command has finished, you should be able to access your web app by navigating to your VM's public IP address in your web browser:
 
-[http://52.138.205.52](http://52.138.205.52)
+[http://IP](http://<IP>)
 
 # Use Storage Account
 
