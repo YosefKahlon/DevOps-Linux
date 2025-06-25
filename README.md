@@ -21,3 +21,7 @@ This repository contains my hands-on notes, scripts, and project work for learni
 
 
 * [Docker Compose & Azure + VM ](./week7/Docker%20Compose%20&%20Azure+VM.md)
+
+* [Azure Infrastructure](./week8/Azure%20Infrastructure.md)
+
+* [Advanced Azure Infrastructure](./week8/WEEK8_SUMMARY.md)
