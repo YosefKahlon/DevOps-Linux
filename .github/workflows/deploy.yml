@@ -1,0 +1,47 @@
+name: Deploy to Azure VM
+
+on:
+  workflow_dispatch:  
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+        username: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientId }}
+        password: ${{ fromJson(secrets.AZURE_CREDENTIALS).clientSecret }}
+
+    - name: Build and push Docker image to ACR
+      uses: docker/build-push-action@v2
+      with:
+        context: week8/simple-web-app
+        push: true
+        tags: ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+
+    - name: Deploy to Azure VM
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AZURE_VM_IP }}
+        username: ${{ secrets.AZURE_VM_USERNAME }}
+        key: ${{ secrets.AZURE_VM_SSH_KEY }}
+        script: |
+          sudo systemctl stop nginx || true
+          sudo systemctl disable nginx || true
+          az login --identity
+          az acr login --name ${{ secrets.ACR_NAME }}
+          docker pull ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
+          docker stop simple-web-app || true
+          docker rm simple-web-app || true
+          docker run -d --name simple-web-app -p 80:3000 ${{ secrets.ACR_NAME }}.azurecr.io/simple-web-app:latest
