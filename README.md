@@ -2,26 +2,30 @@
 
 This repository contains my hands-on notes, scripts, and project work for learning DevOps, Linux, Docker, CI/CD, and cloud deployment.
 
-* [Linux basic commands](./week1/Intro%20to%20DevOps%20and%20Linux.md)
+* [Linux basic commands](./DevOps%20&%20Linux%20Basics//Intro%20to%20DevOps%20and%20Linux.md)
 
+---
+* [Intro to Shell scripting](./Shell%20scripting//week2_practice/Shell%20scripting.md)
 
-* [Intro to Shell scripting](./week2_practice/Shell%20scripting.md)
+* [Advanced Log Report Automation](./Shell%20scripting//week2_Summary/Advanced%20Log%20Report%20Automation.md)
 
-* [Advanced Log Report Automation](./week2_Summary/Advanced%20Log%20Report%20Automation.md)
+---
 
-* [Networking & SSH](./week3_practice/Networking%20&%20SSH.md)
+* [Networking & SSH](./Networking%20&%20SSH//Networking%20&%20SSH.md)
+---
 
+* [Advanced Git & GitHub](./Version%20Control%20with%20Git///github_practice.md) 
+---
 
-* [Advanced Git & GitHub](./week4/github_practice.md) 
+* [CI/CD with GitHub Action](./CICD%20with%20GitHub%20Actions//CICD_with_GitHub_Actions.md)
+---
+* [Docker-Containers](./Docker%20Fundamentals//Docker-Containers.md)
+---
 
+* [Docker Compose & Azure + VM ](./Docker%20Compose%20&%20Azure%20+%20VM//Docker%20Compose%20&%20Azure+VM.md)
+---
+* [Azure Infrastructure](./Azure%20Infrastructure//Azure%20Infrastructure.md)
 
-* [CI/CD with GitHub Action](./week5/CICD_with_GitHub_Actions.md)
+* [Advanced Azure Infrastructure](./Azure%20Infrastructure//WEEK8_SUMMARY.md)
+---
 
-* [Docker-Containers](./week6/Docker-Containers.md)
-
-
-* [Docker Compose & Azure + VM ](./week7/Docker%20Compose%20&%20Azure+VM.md)
-
-* [Azure Infrastructure](./week8/Azure%20Infrastructure.md)
-
-* [Advanced Azure Infrastructure](./week8/WEEK8_SUMMARY.md)
