@@ -387,7 +387,7 @@ webapp on vm
 
 ## Automatic Deployment
 
-We can automate the process by creating a bash script
+We can automate the process by creating a bash script [deply.sh](deploy.sh)
 ```bash 
 chmod +x deploy.sh
 ./deploy.sh
