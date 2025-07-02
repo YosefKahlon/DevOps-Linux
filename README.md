@@ -28,4 +28,5 @@ This repository contains my hands-on notes, scripts, and project work for learni
 
 * [Advanced Azure Infrastructure](./Azure%20Infrastructure//WEEK8_SUMMARY.md)
 ---
+* [Terraform on Azure](./Terraform%20on%20Azure/Terraform%20on%20Azure.md)
 
